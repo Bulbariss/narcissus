@@ -1,0 +1,268 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+.P {
+  @apply mt-3;
+  @apply text-base;
+}
+
+.H1 {
+  @apply text-4xl;
+  @apply tracking-tight;
+  @apply leading-10;
+  @apply font-bold;
+}
+
+@screen sm {
+  .P {
+    @apply mt-5;
+    @apply text-lg;
+    @apply max-w-xl;
+    @apply mx-auto;
+  }
+  .H1 {
+    @apply text-5xl;
+    @apply leading-none;
+  }
+}
+
+@screen md {
+  .P {
+    @apply mt-5;
+    @apply text-xl;
+  }
+  .H1 {
+    @apply text-6xl;
+  }
+}
+/* purgecss end ignore */
+@tailwind utilities;
+
+html {
+  height: 100%;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: greyscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* input {
+  vertical-align: middle;
+  line-height: normal;
+} */
+
+/* input::placeholder,
+textarea::placeholder {
+  color: #52606d;
+  color: #3C4859;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #52606d;
+  line-height: 1.5;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #52606d;
+  line-height: 1.5;
+} */
+
+::selection {
+  background: #ccff00;
+  color: #000;
+  text-shadow: none;
+}
+
+/* Font Declaration */
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../fonts/Inter-Black.woff2") format("woff2"),
+    url("../fonts/Inter-Black.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/Inter-Bold.woff2") format("woff2"),
+    url("../fonts/Inter-Bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Inter-Regular.woff2") format("woff2"),
+    url("../fonts/Inter-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/Inter-Light.woff2") format("woff2"),
+    url("../fonts/Inter-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/Inter-Medium.woff2") format("woff2"),
+    url("../fonts/Inter-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iAWriterDuospace";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/iAWriterDuospace-Regular.eot") format("embedded-opentype"),
+    url("../fonts/iAWriterDuospace-Regular.woff2") format("woff2"),
+    url("../fonts/iAWriterDuospace-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iAWriterDuospace";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/iAWriterDuospace-Bold.eot") format("embedded-opentype"),
+    url("../fonts/iAWriterDuospace-Bold.woff2") format("woff2"),
+    url("../fonts/iAWriterDuospace-Bold.woff") format("woff");
+}
+
+/* Font Declaration */
+
+/* Classes */
+
+.btn-cc {
+  border-radius: 5px;
+  display: block;
+  padding: 0.5rem 0.9rem;
+  font-weight: 700;
+  border-style: solid;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-lg {
+  padding: 0.625rem 1.5rem;
+}
+
+.active-nav {
+  border-bottom: 2px solid;
+}
+
+.link-animation:hover .active-nav {
+  border-bottom: 2px solid #ffffff;
+}
+
+.justify-self-center {
+  justify-self: center;
+}
+
+.padding-inline-start {
+  padding-inline-start: 30px;
+}
+
+.block-imp {
+  display: block !important;
+}
+
+.text-muted-black {
+  color: #333333;
+}
+
+.text-muted-grey {
+  color: #414141;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+.h-fit {
+  height: fit-content;
+}
+
+.color-invert {
+  filter: invert(1);
+  mix-blend-mode: difference;
+}
+
+.btn-skeleton {
+  height: 38px;
+  padding: 0 30px;
+  text-align: center;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.bg-grey-nice {
+  background-color: #f6f5f4;
+}
+
+.bg-ivory {
+  background-color: #f7f1e3;
+}
+
+.h-1\/2 {
+  height: 50%;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+.main-h-14 {
+  min-height: 3.5rem;
+}
+
+.center-x {
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.center-y {
+  right: 50%;
+  transform: translateX(+50%);
+}
+
+.center-xy {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.max-w-80 {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.max-w-text {
+  max-width: 44.5rem;
+}
+
+@media (min-width: 768px) {
+  .md\:h-14 {
+    height: 3.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .scroll-lock {
+    overflow: hidden;
+  }
+}
