@@ -80,6 +80,21 @@ textarea::-webkit-input-placeholder {
 /* Font Declaration */
 
 @font-face {
+  font-family: "alcotton";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/alcotton.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SpriteGraffiti";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/SpriteGraffiti-Regular.woff2") format("woff2"),
+    url("../fonts/SpriteGraffiti-Regular.woff") format("woff");
+}
+
+@font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 900;
@@ -121,29 +136,20 @@ textarea::-webkit-input-placeholder {
     url("../fonts/Inter-Medium.woff") format("woff");
 }
 
-@font-face {
-  font-family: "iAWriterDuospace";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("../fonts/iAWriterDuospace-Regular.eot") format("embedded-opentype"),
-    url("../fonts/iAWriterDuospace-Regular.woff2") format("woff2"),
-    url("../fonts/iAWriterDuospace-Regular.woff") format("woff");
-}
-
-@font-face {
-  font-family: "iAWriterDuospace";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("../fonts/iAWriterDuospace-Bold.eot") format("embedded-opentype"),
-    url("../fonts/iAWriterDuospace-Bold.woff2") format("woff2"),
-    url("../fonts/iAWriterDuospace-Bold.woff") format("woff");
-}
-
 /* Font Declaration */
 
 /* Classes */
+
+.SpriteGraffiti {
+  font-family: "SpriteGraffiti", "Inter", sans-serif;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+.alcotton {
+  font-family: "alcotton", "Inter", sans-serif;
+  font-weight: 400;
+  letter-spacing: normal;
+}
 
 .btn-cc {
   border-radius: 5px;

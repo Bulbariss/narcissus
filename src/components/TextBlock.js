@@ -3,11 +3,11 @@ import React from "react";
 const TextBlock = ({ heading, name, text, img }) => {
   return (
     <section className="py-24 px-4 sm:px-0 max-w-text mx-auto">
-      <p className="H1 pb-6">{heading}</p>
+      <p className="H1 pb-6 alcotton">{heading}</p>
       <div className="flex flex-row items-center pb-8 justify-between">
         <div className="flex items-center">
           <img src={img} alt="" className="rounded-full w-12" />
-          <p className="pl-4 text-xl text-gray-500 font-medium">{name}</p>
+          <p className="pl-4 text-xl text-gray-400 font-medium">{name}</p>
         </div>
         <div className="flex items-center">
           <a href="/">

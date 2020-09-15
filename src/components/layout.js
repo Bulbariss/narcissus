@@ -7,7 +7,7 @@ function Layout({ children }) {
   return (
     <Fragment>
       {/* <Header /> */}
-      <main>{children}</main>
+      <main className="bg-gray-900 text-white">{children}</main>
       {/* <Footer /> */}
     </Fragment>
   );
