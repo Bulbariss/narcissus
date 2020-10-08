@@ -80,60 +80,67 @@ textarea::-webkit-input-placeholder {
 /* Font Declaration */
 
 @font-face {
-  font-family: "alcotton";
-  font-style: normal;
-  font-display: swap;
-  src: url("../fonts/alcotton.ttf") format("truetype");
-}
-
-@font-face {
   font-family: "SpriteGraffiti";
   font-style: normal;
   font-display: swap;
   src: url("../fonts/SpriteGraffiti-Regular.woff2") format("woff2"),
     url("../fonts/SpriteGraffiti-Regular.woff") format("woff");
 }
-
 @font-face {
-  font-family: "Inter";
+  font-family: "bbb";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/bbb.ttf") format("truetype");
+}
+
+/* @font-face {
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url("../fonts/Inter-Black.woff2") format("woff2"),
-    url("../fonts/Inter-Black.woff") format("woff");
+  src: url("../fonts/Manrope-Black.woff2") format("woff2"),
+    url("../fonts/Manrope-Black.woff") format("woff");
+} */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../fonts/Manrope-ExtraBold.woff2") format("woff2"),
+    url("../fonts/Manrope-ExtraBold.woff") format("woff");
 }
 @font-face {
-  font-family: "Inter";
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("../fonts/Inter-Bold.woff2") format("woff2"),
-    url("../fonts/Inter-Bold.woff") format("woff");
+  src: url("../fonts/Manrope-Bold.woff2") format("woff2"),
+    url("../fonts/Manrope-Bold.woff") format("woff");
 }
 @font-face {
-  font-family: "Inter";
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../fonts/Inter-Regular.woff2") format("woff2"),
-    url("../fonts/Inter-Regular.woff") format("woff");
+  src: url("../fonts/Manrope-Regular.woff2") format("woff2"),
+    url("../fonts/Manrope-Regular.woff") format("woff");
 }
 @font-face {
-  font-family: "Inter";
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("../fonts/Inter-Light.woff2") format("woff2"),
-    url("../fonts/Inter-Light.woff") format("woff");
+  src: url("../fonts/Manrope-Light.woff2") format("woff2"),
+    url("../fonts/Manrope-Light.woff") format("woff");
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: "Manrope";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../fonts/Inter-Medium.woff2") format("woff2"),
-    url("../fonts/Inter-Medium.woff") format("woff");
+  src: url("../fonts/Manrope-Medium.woff2") format("woff2"),
+    url("../fonts/Manrope-Medium.woff") format("woff");
 }
 
 /* Font Declaration */
@@ -141,14 +148,16 @@ textarea::-webkit-input-placeholder {
 /* Classes */
 
 .SpriteGraffiti {
-  font-family: "SpriteGraffiti", "Inter", sans-serif;
+  font-family: "SpriteGraffiti", "Manrope", sans-serif;
   font-weight: 400;
   letter-spacing: normal;
+  color: #e07ca4;
 }
-.alcotton {
-  font-family: "alcotton", "Inter", sans-serif;
+.bbb {
+  font-family: "bbb", "Manrope", sans-serif;
   font-weight: 400;
   letter-spacing: normal;
+  color: #e07ca4;
 }
 
 .btn-cc {

@@ -8,6 +8,9 @@ import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
 import Img from "../images/image.jpeg";
+import koshka from "../images/koshka_pink.png";
+import psychologist from "../images/psychologist.jpg";
+import { graphql, useStaticQuery } from "gatsby";
 
 function IndexPage() {
   const landscapeMediaQuery =
@@ -25,6 +28,42 @@ function IndexPage() {
   const [ref, entry] = useIntersect({
     threshold: 0,
   });
+
+  const images = useStaticQuery(graphql`
+    fragment regularImage on File {
+      sharp: childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    query {
+      oneH: file(relativePath: { eq: "collages/1H.jpg" }) {
+        ...regularImage
+      }
+      oneL: file(relativePath: { eq: "collages/1L.jpg" }) {
+        ...regularImage
+      }
+      twoH: file(relativePath: { eq: "collages/2H.jpg" }) {
+        ...regularImage
+      }
+      twoL: file(relativePath: { eq: "collages/2L.jpg" }) {
+        ...regularImage
+      }
+      threeH: file(relativePath: { eq: "collages/3H.jpg" }) {
+        ...regularImage
+      }
+      threeL: file(relativePath: { eq: "collages/3L.jpg" }) {
+        ...regularImage
+      }
+      fourH: file(relativePath: { eq: "collages/4H.jpg" }) {
+        ...regularImage
+      }
+      fourL: file(relativePath: { eq: "collages/4L.jpg" }) {
+        ...regularImage
+      }
+    }
+  `);
 
   useEffect(() => {
     setIsLandscape(landscapeMediaQuery.matches);
@@ -79,35 +118,76 @@ function IndexPage() {
       <SEO title="" description="" pathname="" />
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
-      <Video ref={ref} playing={entry.isIntersecting} />
-      <Collage isLandscape={isLandscape} />
+      <Video
+        isLandscape={isLandscape}
+        ref={ref}
+        playing={entry.isIntersecting}
+      />
+      <Collage
+        isLandscape={isLandscape}
+        imageH={images.oneH.sharp.fluid}
+        imageL={images.oneL.sharp.fluid}
+      />
       <TextBlock
         heading="Мнение Психолога"
         text={text}
-        name="Вася Пупкин"
-        img={Img}
+        name="Ирина Лернер"
+        img={psychologist}
       />
-      <Collage isLandscape={isLandscape} />
+      <Collage
+        isLandscape={isLandscape}
+        imageH={images.twoH.sharp.fluid}
+        imageL={images.twoL.sharp.fluid}
+      />
       <TextBlock
-        heading="Мнение Астролога"
         text={textAstrology}
+        heading="Джйотиш"
         name="Вася Пупкин"
         img={Img}
       />
-      <Collage isLandscape={isLandscape} />
+      <Collage
+        isLandscape={isLandscape}
+        imageH={images.threeH.sharp.fluid}
+        imageL={images.threeL.sharp.fluid}
+      />
       <TextBlock
         heading="Мнение Психолога"
         text={textVictimOne}
         name="Вася Пупкин"
         img={Img}
       />
-      <Collage isLandscape={isLandscape} />
+      <Collage
+        isLandscape={isLandscape}
+        imageH={images.fourH.sharp.fluid}
+        imageL={images.fourL.sharp.fluid}
+      />
       <TextBlock
         heading="Мнение Психолога"
         text={textVictimTwo}
         name="Вася Пупкин"
         img={Img}
       />
+      <div>
+        <p className="H1 text-center pb-12 bbb">СМИ О ПРОЕКТЕ</p>
+        <div className="flex justify-around pb-12" style={{ color: "#cf0" }}>
+          <a href="https://www.vogue.ru/lifestyle/nasilie-eto-ne-pro-lyubov-chto-posmotret-i-prochest-ob-abyuze">
+            VOGUE
+          </a>
+          <a href="https://srsly.ru/article/show/4481/">SRSLY</a>
+          <a href="https://flacon-magazine.com/rubric/people/sabrina-bagirova-diskomfort-cast-moej-zizni">
+            FLACON
+          </a>
+          <a href="https://m.buro247.ru/culture/music/30-sep-2020-sabrina-interview.html">
+            BURO24/7
+          </a>
+        </div>
+      </div>
+      <div className="flex flex-col items-center">
+        <a href="mailto:someone@yoursite.com" className="bbb text-3xl">
+          Напишите Нам
+        </a>
+        <img src={koshka} alt="koshka" className="w-1/4 py-12" />
+      </div>
     </Layout>
   );
 }

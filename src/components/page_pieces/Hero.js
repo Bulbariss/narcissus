@@ -36,9 +36,6 @@ const Hero = ({ isLandscape }) => {
           style={{ opacity: "0.4" }}
         />
         <div className="flex flex-col text-white z-10 max-w-2xl px-4 md:px-0">
-          {/* <h1 className="H1 text-5xl md:text-6xl md:text-center leading-none uppercase SpriteGraffiti">
-            narcissus
-          </h1> */}
           <img
             src={Name}
             alt="narcissus"
