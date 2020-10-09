@@ -7,7 +7,7 @@ const Hero = ({ isLandscape }) => {
   const images = useStaticQuery(graphql`
     fragment regularImage on File {
       sharp: childImageSharp {
-        fluid(maxWidth: 1600) {
+        fluid {
           ...GatsbyImageSharpFluid
         }
       }
