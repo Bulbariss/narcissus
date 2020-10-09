@@ -83,6 +83,7 @@ const ParallaxBanner = ({
                 fluid={fluid}
                 fadeIn="soft"
                 alt={alt}
+                loading="auto"
                 className={layerClassMerged}
                 style={{
                   ...imageStyle,

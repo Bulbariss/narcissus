@@ -40,11 +40,14 @@ const Hero = ({ isLandscape }) => {
           style={{ background: "linear-gradient( transparent, #212121)" }}
         />
         <div
-          className="absolute top-0 w-screen h-auto pb-16 max-w-80"
+          className="absolute top-0 w-screen h-auto pb-16"
           style={{ background: "linear-gradient(#000, transparent)" }}
         >
           <p className="py-6 text-4xl text-center bbb">СМИ О ПРОЕКТЕ</p>
-          <div className="flex justify-around" style={{ color: "#cf0" }}>
+          <div
+            className="flex justify-around max-w-80"
+            style={{ color: "#cf0" }}
+          >
             <a
               rel="noreferrer"
               target="_blank"
