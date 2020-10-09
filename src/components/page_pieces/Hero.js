@@ -25,24 +25,64 @@ const Hero = ({ isLandscape }) => {
   return (
     <>
       <BackgroundImage
-        className="min-h-screen flex justify-center items-center"
+        className="flex items-center justify-center min-h-screen"
         Tag="section"
         alt="Обложка"
         fluid={isLandscape ? images.Test.sharp.fluid : images.Test2.sharp.fluid}
         fadeIn="soft"
       >
         <div
-          className="absolute h-screen w-screen bg-black"
+          className="absolute w-screen h-screen bg-black"
           style={{ opacity: "0.4" }}
         />
-        <div className="flex flex-col text-white z-10 max-w-2xl px-4 md:px-0">
+        <div
+          className="absolute bottom-0 w-screen h-auto pt-16"
+          style={{ background: "linear-gradient( transparent, #212121)" }}
+        />
+        <div
+          className="absolute top-0 w-screen h-auto pb-16"
+          style={{ background: "linear-gradient(#000, transparent)" }}
+        >
+          <p className="py-6 text-4xl text-center bbb">СМИ О ПРОЕКТЕ</p>
+          <div className="flex justify-around" style={{ color: "#cf0" }}>
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://www.vogue.ru/lifestyle/nasilie-eto-ne-pro-lyubov-chto-posmotret-i-prochest-ob-abyuze"
+            >
+              VOGUE
+            </a>
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://srsly.ru/article/show/4481/"
+            >
+              SRSLY
+            </a>
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://flacon-magazine.com/rubric/people/sabrina-bagirova-diskomfort-cast-moej-zizni"
+            >
+              FLACON
+            </a>
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://https://www.buro247.ru/culture/music/30-sep-2020-sabrina-interview.html"
+            >
+              BURO24/7
+            </a>
+          </div>
+        </div>
+        <div className="z-10 flex flex-col max-w-2xl px-4 text-white md:px-0">
           <img
             src={Name}
             alt="narcissus"
             style={{ filter: "invert(1)" }}
             className="select-none"
           />
-          <p className="P text-white text-xl font-base md:text-center">
+          <p className="text-xl text-white P font-base md:text-center">
             An art project of Koshka Neon with singers Sabrina and Mirele is
             aimed to raise awareness of abusive relationships.
           </p>

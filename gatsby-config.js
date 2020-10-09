@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Letteweb`,
-    description: `Web development studio`,
-    author: `Letteweb`,
-    siteUrl: "https://letteweb.lv",
+    title: `Narcissus`,
+    description: `An art project of Koshka Neon with singers Sabrina and Mirele is aimed to raise awareness of abusive relationships.`,
+    author: `Koshka Neon`,
+    siteUrl: "https://narcissus.monster",
   },
   plugins: [
     "gatsby-plugin-eslint",
@@ -11,16 +11,15 @@ module.exports = {
     "gatsby-transformer-sharp",
     `gatsby-plugin-styled-jsx`,
     `gatsby-background-image`,
-    // `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Letteweb`,
-        short_name: `Letteweb`,
-        lang: `en`,
+        name: `Narcissus`,
+        short_name: `Narcissus`,
+        lang: `ru`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#4dc0b5`,
+        background_color: `#212112`,
+        theme_color: `#cf0`,
         display: `minimal-ui`,
         icon: `./src/images/icon.png`,
         purpose: "maskable",

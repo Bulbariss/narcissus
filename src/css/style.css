@@ -202,6 +202,10 @@ textarea::-webkit-input-placeholder {
   color: #414141;
 }
 
+.text-acid {
+  color: #cf0;
+}
+
 .w-fit {
   width: fit-content;
 }

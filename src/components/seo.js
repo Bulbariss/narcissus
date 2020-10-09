@@ -2,7 +2,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
 import Helmet from "react-helmet";
-import image from "../images/cardImg.png";
+import image from "../images/social cover.jpg";
 
 function SEO({ description, lang, meta, keywords, title, pathname }) {
   const { site } = useStaticQuery(graphql`
@@ -82,7 +82,7 @@ function SEO({ description, lang, meta, keywords, title, pathname }) {
                 },
                 {
                   property: "og:image:height",
-                  content: "627px",
+                  content: "630px",
                 },
                 {
                   name: `twitter:card`,
@@ -112,7 +112,7 @@ function SEO({ description, lang, meta, keywords, title, pathname }) {
 }
 
 SEO.defaultProps = {
-  lang: `en`,
+  lang: `ru`,
   keywords: [],
   meta: [],
 };
