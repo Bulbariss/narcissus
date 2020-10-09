@@ -26,37 +26,19 @@ function IndexPage() {
   }
 
   const [ref, entry] = useIntersect({
-    threshold: 0.3,
+    threshold: 0.5,
   });
 
   const images = useStaticQuery(graphql`
     fragment regularImage on File {
       sharp: childImageSharp {
-        fluid {
+        fluid(maxWidth: 1600) {
           ...GatsbyImageSharpFluid
         }
       }
     }
     query {
-      oneH: file(relativePath: { eq: "collages/1H.jpg" }) {
-        ...regularImage
-      }
-      oneL: file(relativePath: { eq: "collages/1L.jpg" }) {
-        ...regularImage
-      }
-      twoH: file(relativePath: { eq: "collages/2H.jpg" }) {
-        ...regularImage
-      }
-      twoL: file(relativePath: { eq: "collages/2L.jpg" }) {
-        ...regularImage
-      }
-      threeH: file(relativePath: { eq: "collages/3H.jpg" }) {
-        ...regularImage
-      }
       threeL: file(relativePath: { eq: "collages/3L.jpg" }) {
-        ...regularImage
-      }
-      fourH: file(relativePath: { eq: "collages/4H.jpg" }) {
         ...regularImage
       }
       fourL: file(relativePath: { eq: "collages/4L.jpg" }) {
@@ -102,16 +84,8 @@ function IndexPage() {
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
 
-      <Video
-        isLandscape={isLandscape}
-        ref={ref}
-        playing={entry.isIntersecting}
-      />
-      <Collage
-        isLandscape={isLandscape}
-        imageH={images.fourL.sharp.fluid}
-        imageL={images.fourL.sharp.fluid}
-      />
+      <Video ref={ref} playing={entry.isIntersecting} />
+      <Collage image={images.fourL.sharp.fluid} />
       <TextBlock
         heading="Мнение Психолога"
         text={text}
@@ -119,11 +93,7 @@ function IndexPage() {
         img={psychologist}
       />
 
-      <Collage
-        isLandscape={isLandscape}
-        imageH={images.threeL.sharp.fluid}
-        imageL={images.threeL.sharp.fluid}
-      />
+      <Collage isLandscape={isLandscape} image={images.threeL.sharp.fluid} />
       <TextBlock
         heading="Мнение Психолога"
         text={textVictimOne}

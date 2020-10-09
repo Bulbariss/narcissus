@@ -5,7 +5,7 @@ import Vid from "../images/main.mp4";
 import Img from "../images/col.jpg";
 import Cover from "../images/cover.jpg";
 
-const Video = forwardRef(({ playing, isLandscape }, ref) => {
+const Video = forwardRef(({ playing }, ref) => {
   const [inView, setInView] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -24,18 +24,11 @@ const Video = forwardRef(({ playing, isLandscape }, ref) => {
         onReady={() => setReady(true)}
         playing={inView && ready}
         url={Vid}
-        width={isLandscape ? "auto" : "auto"}
-        height={!isLandscape ? "auto" : "auto"}
+        width={"auto"}
+        height={"auto"}
         playsinline
         style={{ margin: "auto" }}
       />
-      {/* {isLandscape && (
-        <img
-          src={Img}
-          alt="test"
-          className="absolute top-0 w-screen h-full opacity-25"
-        />
-      )} */}
       {isMobile && (
         <>
           <img
