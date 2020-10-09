@@ -1,7 +1,7 @@
 import React, { useEffect, useState, forwardRef } from "react";
 import ReactPlayer from "react-player";
-// import Img from "../images/hero.jpg";
 import { isMobile } from "react-device-detect";
+import Vid from "../images/main.mp4";
 import Img from "../images/col.jpg";
 import Cover from "../images/cover.jpg";
 
@@ -16,17 +16,18 @@ const Video = forwardRef(({ playing, isLandscape }, ref) => {
     <div
       ref={ref}
       style={{ backgroundImage: `url(${Img})`, color: "#fff" }}
-      className={`relative w-screen ${isLandscape ? "h-screen" : "100%"}`}
+      className={`relative w-screen`}
     >
       <ReactPlayer
         className={"react-player"}
         id="react-player"
         onReady={() => setReady(true)}
         playing={inView && ready}
-        url="https://www.plvs.ru/videos/main.mp4"
-        width={!isLandscape ? "100%" : "100vw"}
-        height={!isLandscape ? "auto" : "100%"}
+        url={Vid}
+        width={isLandscape ? "auto" : "auto"}
+        height={!isLandscape ? "auto" : "auto"}
         playsinline
+        style={{ margin: "auto" }}
       />
       {/* {isLandscape && (
         <img

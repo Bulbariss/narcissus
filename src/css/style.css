@@ -48,6 +48,10 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+video {
+  margin: auto;
+}
+
 /* input {
   vertical-align: middle;
   line-height: normal;

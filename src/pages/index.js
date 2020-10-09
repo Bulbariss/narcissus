@@ -26,7 +26,7 @@ function IndexPage() {
   }
 
   const [ref, entry] = useIntersect({
-    threshold: 0,
+    threshold: 0.3,
   });
 
   const images = useStaticQuery(graphql`
