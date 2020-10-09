@@ -42,7 +42,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "devDependencies": {
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^9.8.6",
     "babel-eslint": "10.1.0",
     "cssnano": "4.1.10",
     "eslint": "7.10.0",

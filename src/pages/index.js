@@ -109,8 +109,8 @@ function IndexPage() {
       />
       <Collage
         isLandscape={isLandscape}
-        imageH={images.oneH.sharp.fluid}
-        imageL={images.oneL.sharp.fluid}
+        imageH={images.fourL.sharp.fluid}
+        imageL={images.fourL.sharp.fluid}
       />
       <TextBlock
         heading="Мнение Психолога"
@@ -121,7 +121,7 @@ function IndexPage() {
 
       <Collage
         isLandscape={isLandscape}
-        imageH={images.threeH.sharp.fluid}
+        imageH={images.threeL.sharp.fluid}
         imageL={images.threeL.sharp.fluid}
       />
       <TextBlock

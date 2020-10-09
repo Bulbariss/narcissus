@@ -2,12 +2,13 @@ import React from "react";
 
 const SecondScreen = () => {
   return (
-    <section className="py-32 px-4 md:text-center bg-gray-900">
-      <h2 className="H1 bbb">О чем наш проект</h2>
-      <p className="max-w-text text-gray-300 P mx-auto">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque amet
-        maiores aperiam, deserunt quibusdam sunt dolorum! Veniam, ducimus
-        adipisci nisi eligendi porro pariatur repudiandae amet.
+    <section className="px-4 py-32 bg-gray-900 md:text-center">
+      <h2 className="pb-6 H1 bbb">О чем наш проект</h2>
+      <p className="mx-auto text-gray-300 max-w-text P">
+        Проект состоит из атмосферного mood-видео, серии фото-коллажей и
+        исследования, в рамках которого команда углубилась в проблему вместе с
+        психологом и получила советы, которые помогут распознать
+        нарцисса-абьюзера
       </p>
     </section>
   );

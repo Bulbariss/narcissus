@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Narcissus`,
-    description: `An art project of Koshka Neon with singers Sabrina and Mirele is aimed to raise awareness of abusive relationships.`,
+    description: `Арт-проект, в котором Koshka Neon вместе с певицей Сабриной и певицей Mirele поднимают проблему абьюзивных отношений.`,
     author: `Koshka Neon`,
     siteUrl: "https://narcissus.monster",
   },
