@@ -5,7 +5,7 @@ import Vid from "../images/main.mp4";
 import Img from "../images/col.jpg";
 import Cover from "../images/cover.jpg";
 
-const Video = forwardRef(({ playing }, ref) => {
+const Video = forwardRef(({ playing, isLandscape }, ref) => {
   const [inView, setInView] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -15,7 +15,7 @@ const Video = forwardRef(({ playing }, ref) => {
   return (
     <div
       ref={ref}
-      style={{ backgroundImage: `url(${Img})`, color: "#fff" }}
+      style={{ backgroundImage: `url(${Img})` }}
       className={`relative w-screen`}
     >
       <ReactPlayer
@@ -25,7 +25,7 @@ const Video = forwardRef(({ playing }, ref) => {
         playing={inView && ready}
         url={Vid}
         width={"auto"}
-        height={"auto"}
+        height={!isLandscape ? "auto" : "100vh"}
         playsinline
         style={{ margin: "auto" }}
       />

@@ -10,7 +10,7 @@ const Collage = React.memo(({ image, alt = "Коллаж" }) => {
       layers={[
         {
           image: "",
-          amount: 0.5,
+          amount: 0.4,
         },
       ]}
     ></ParallaxBanner>
