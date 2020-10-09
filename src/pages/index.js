@@ -33,14 +33,14 @@ function IndexPage() {
     query {
       threeL: file(relativePath: { eq: "collages/3L.jpg" }) {
         sharp: childImageSharp {
-          fluid(maxWidth: 1400) {
+          fluid {
             ...GatsbyImageSharpFluid
           }
         }
       }
       fourL: file(relativePath: { eq: "collages/4L.jpg" }) {
         sharp: childImageSharp {
-          fluid(maxWidth: 1400) {
+          fluid {
             ...GatsbyImageSharpFluid
           }
         }
