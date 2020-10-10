@@ -11,6 +11,7 @@ import Img from "../images/image.jpeg";
 import koshka from "../images/koshka_pink.png";
 import psychologist from "../images/psychologist.jpg";
 import { graphql, useStaticQuery } from "gatsby";
+import ParallaxBanner from "../components/ParallaxBanner.js";
 
 function IndexPage() {
   const landscapeMediaQuery =
@@ -90,6 +91,17 @@ function IndexPage() {
         playing={entry.isIntersecting}
         isLandscape={isLandscape}
       />
+      <ParallaxBanner
+        className={`min-h-screen`}
+        alt={"w"}
+        fluid={images.threeL.sharp.fluid}
+        layers={[
+          {
+            image: "",
+            amount: 0.4,
+          },
+        ]}
+      ></ParallaxBanner>
       <Collage image={images.fourL.sharp.fluid} />
       <TextBlock
         heading="Мнение Психолога"
