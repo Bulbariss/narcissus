@@ -26,6 +26,7 @@ const Hero = ({ isLandscape }) => {
     <>
       <BackgroundImage
         className="flex items-center justify-center min-h-screen"
+        loading="eager"
         Tag="section"
         alt="Обложка"
         fluid={isLandscape ? images.Test.sharp.fluid : images.Test2.sharp.fluid}

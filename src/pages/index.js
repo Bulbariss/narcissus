@@ -11,7 +11,7 @@ import Img from "../images/image.jpeg";
 import koshka from "../images/koshka_pink.png";
 import psychologist from "../images/psychologist.jpg";
 import { graphql, useStaticQuery } from "gatsby";
-import ParallaxBanner from "../components/ParallaxBanner.js";
+import ParallaxBanner from "react-scroll-parallax";
 
 function IndexPage() {
   const landscapeMediaQuery =
@@ -97,7 +97,7 @@ function IndexPage() {
         fluid={images.threeL.sharp.fluid}
         layers={[
           {
-            image: "",
+            image: images.threeL.sharp.fluid.src,
             amount: 0.4,
           },
         ]}

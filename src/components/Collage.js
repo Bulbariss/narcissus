@@ -1,5 +1,5 @@
 import React from "react";
-import ParallaxBanner from "./ParallaxBanner.js";
+import ParallaxBanner from "react-scroll-parallax";
 
 const Collage = React.memo(({ image, alt = "Коллаж" }) => {
   return (
@@ -9,7 +9,7 @@ const Collage = React.memo(({ image, alt = "Коллаж" }) => {
       fluid={image}
       layers={[
         {
-          image: "",
+          image: image.src,
           amount: 0.4,
         },
       ]}
