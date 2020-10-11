@@ -1,23 +1,20 @@
 import React from "react";
-import ParallaxBanner from "react-scroll-parallax";
+import { ParallaxBanner } from "react-scroll-parallax";
 
-const Collage = React.memo(({ image, alt = "Коллаж" }) => {
+const Collage = React.memo(({ image }) => {
   return (
     <div className="flex items-center w-full h-full">
       <ParallaxBanner
-        className={`min-h-screen`}
-        alt={alt}
         style={{
           height: "100vh",
         }}
-        fluid={image}
         layers={[
           {
-            image: image.src,
+            image: `${image.src}`,
             amount: 0.4,
           },
         ]}
-     />
+      />
     </div>
   );
 });

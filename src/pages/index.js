@@ -11,7 +11,6 @@ import Img from "../images/image.jpeg";
 import koshka from "../images/koshka_pink.png";
 import psychologist from "../images/psychologist.jpg";
 import { graphql, useStaticQuery } from "gatsby";
-import ParallaxBanner from "react-scroll-parallax";
 
 function IndexPage() {
   const landscapeMediaQuery =
@@ -91,21 +90,7 @@ function IndexPage() {
         playing={entry.isIntersecting}
         isLandscape={isLandscape}
       />
-      <div className="flex items-center w-full h-full">
-        <ParallaxBanner
-          alt={"w"}
-          style={{
-            height: "100vh",
-          }}
-          fluid={images.threeL.sharp.fluid}
-          layers={[
-            {
-              image: images.threeL.sharp.fluid.src,
-              amount: 0.4,
-            },
-          ]}
-        />
-      </div>
+      <Collage image={images.threeL.sharp.fluid} />
       <Collage image={images.fourL.sharp.fluid} />
       <TextBlock
         heading="Мнение Психолога"
