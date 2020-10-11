@@ -91,17 +91,21 @@ function IndexPage() {
         playing={entry.isIntersecting}
         isLandscape={isLandscape}
       />
-      <ParallaxBanner
-        className={`min-h-screen`}
-        alt={"w"}
-        fluid={images.threeL.sharp.fluid}
-        layers={[
-          {
-            image: images.threeL.sharp.fluid.src,
-            amount: 0.4,
-          },
-        ]}
-      ></ParallaxBanner>
+      <div className="flex items-center w-full h-full">
+        <ParallaxBanner
+          alt={"w"}
+          style={{
+            height: "100vh",
+          }}
+          fluid={images.threeL.sharp.fluid}
+          layers={[
+            {
+              image: images.threeL.sharp.fluid.src,
+              amount: 0.4,
+            },
+          ]}
+        />
+      </div>
       <Collage image={images.fourL.sharp.fluid} />
       <TextBlock
         heading="Мнение Психолога"
