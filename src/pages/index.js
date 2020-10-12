@@ -3,8 +3,8 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
-import Collage from "../components/Collage";
 import Video from "../components/Video";
+import Test from "../components/Test";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
 import Img from "../images/image.jpeg";
@@ -48,6 +48,7 @@ function IndexPage() {
     }
   `);
 
+  console.log(images);
   useEffect(() => {
     setIsLandscape(landscapeMediaQuery.matches);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,8 +91,7 @@ function IndexPage() {
         playing={entry.isIntersecting}
         isLandscape={isLandscape}
       />
-      <Collage image={images.threeL.sharp.fluid} />
-      <Collage image={images.fourL.sharp.fluid} />
+      <Test />
       <TextBlock
         heading="Мнение Психолога"
         text={text}
@@ -99,7 +99,6 @@ function IndexPage() {
         img={psychologist}
       />
 
-      <Collage isLandscape={isLandscape} image={images.threeL.sharp.fluid} />
       <TextBlock
         heading="Мнение Психолога"
         text={textVictimOne}
