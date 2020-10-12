@@ -3,14 +3,15 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
+import Text from "../components/Text";
 import Video from "../components/Video";
-import Test from "../components/Test";
+import ParallaxBanner from "../components/ParallaxBanner";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
-import Img from "../images/image.jpeg";
 import koshka from "../images/koshka_pink.png";
+import threeL from "../images/collages/3L.jpg";
+import fourL from "../images/collages/4L.jpg";
 import psychologist from "../images/psychologist.jpg";
-import { graphql, useStaticQuery } from "gatsby";
 
 function IndexPage() {
   const landscapeMediaQuery =
@@ -29,26 +30,6 @@ function IndexPage() {
     threshold: 0.5,
   });
 
-  const images = useStaticQuery(graphql`
-    query {
-      threeL: file(relativePath: { eq: "collages/3L.jpg" }) {
-        sharp: childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      fourL: file(relativePath: { eq: "collages/4L.jpg" }) {
-        sharp: childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `);
-
-  console.log(images);
   useEffect(() => {
     setIsLandscape(landscapeMediaQuery.matches);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -85,26 +66,20 @@ function IndexPage() {
       <SEO title="Главная" description="" pathname="/" />
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
-
       <Video
         ref={ref}
         playing={entry.isIntersecting}
         isLandscape={isLandscape}
       />
-      <Test />
+      <ParallaxBanner image={fourL} />
       <TextBlock
         heading="Мнение Психолога"
         text={text}
         name="Ирина Лернер"
         img={psychologist}
       />
-
-      <TextBlock
-        heading="Мнение Психолога"
-        text={textVictimOne}
-        name="Вася Пупкин"
-        img={Img}
-      />
+      <ParallaxBanner image={threeL} />
+      <Text text={textVictimOne} />
       <div className="flex flex-col items-center">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
           Напишите Нам
