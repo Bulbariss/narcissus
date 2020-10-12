@@ -1,9 +1,12 @@
 import React from "react";
 
-const TextBlock = ({ text }) => {
+const TextBlock = ({ text, image }) => {
   return (
-    <section className="px-4 py-24 mx-auto md:px-0 max-w-text">
-      <p className="max-w-full m-0 text-lg text-justify whitespace-pre-wrap P">
+    <section
+      className="w-full px-4 py-20 bg-cover md:px-0"
+      style={{ backgroundImage: `url(${image})` }}
+    >
+      <p className="max-w-full m-0 mx-auto text-lg text-justify whitespace-pre-wrap P max-w-text">
         {text}
       </p>
     </section>

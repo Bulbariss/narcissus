@@ -2,7 +2,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
 import Helmet from "react-helmet";
-import image from "../images/social cover.jpg";
+import image from "../images/social_cover.jpg";
 
 function SEO({ description, lang, meta, keywords, title, pathname }) {
   const { site } = useStaticQuery(graphql`
