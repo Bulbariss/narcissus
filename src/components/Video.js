@@ -1,33 +1,13 @@
-import React, { useState, forwardRef, useEffect } from "react";
+import React, { useState, forwardRef } from "react";
 import ReactPlayer from "react-player";
 import Vid from "../images/main.mp4";
 import Img from "../images/col.jpg";
 import Cover from "../images/cover.jpg";
-import { useEventListener, useDebounceFn } from "ahooks";
 
 const Video = forwardRef(({ playing }, ref) => {
   const [ready, setReady] = useState(false);
   const [play, setPlay] = useState(false);
-  const [test, setTest] = useState(false);
 
-  const { run } = useDebounceFn(
-    () => {
-      onResize();
-    },
-    {
-      wait: 50,
-    }
-  );
-
-  useEventListener("resize", run);
-  function onResize() {
-    if (window.innerWidth / window.innerHeight <= 4 / 3) {
-      setTest(true);
-    }
-  }
-  useEffect(() => {
-    onResize();
-  }, []);
   return (
     <div
       ref={ref}
@@ -40,8 +20,8 @@ const Video = forwardRef(({ playing }, ref) => {
         onReady={() => setReady(true)}
         playing={playing && ready && play}
         url={Vid}
+        height={"auto"}
         width={"auto"}
-        height={test ? "auto" : "100vh"}
         playsinline
         autoPlay={false}
         style={{ margin: "auto" }}

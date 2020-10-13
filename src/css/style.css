@@ -51,6 +51,7 @@ html {
 
 video {
   margin: auto;
+  height: auto;
 }
 
 /* input {
@@ -288,5 +289,11 @@ textarea::-webkit-input-placeholder {
 @media (max-width: 640px) {
   .scroll-lock {
     overflow: hidden;
+  }
+}
+
+@media (min-aspect-ratio: 4/3) {
+  video {
+    height: 100vh !important;
   }
 }
