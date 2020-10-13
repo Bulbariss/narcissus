@@ -297,3 +297,9 @@ textarea::-webkit-input-placeholder {
     height: 100vh !important;
   }
 }
+
+@media (max-aspect-ratio: 1/1) {
+  video {
+    width: 100vw !important;
+  }
+}
