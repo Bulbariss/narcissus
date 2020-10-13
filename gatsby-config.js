@@ -40,6 +40,7 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         tailwind: true,
+        whitelist: ["video"],
         whitelistPatterns: [/sym-\d?\d/g],
         purgeOnly: [`src/css/style.css`],
       },
