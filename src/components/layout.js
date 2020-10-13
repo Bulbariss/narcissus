@@ -4,16 +4,18 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function Layout({ children }) {
+  gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
     gsap.utils.toArray(".parallax").forEach((article, i) => {
-      article.bg = article.querySelector(".bg");
+      article.bg = article.querySelector(".parallax-bg");
       // Do the parallax effect on each article
       if (i) {
-        article.bg.style.backgroundPosition = `80% ${innerHeight / 2}px`;
+        article.bg.style.backgroundPosition = `80% ${
+          Math.min(innerHeight, innerWidth) / 2
+        }px`;
 
         gsap.to(article.bg, {
-          backgroundPosition: `80% ${-innerHeight / 2}px`,
+          backgroundPosition: `80% ${-Math.min(innerHeight, innerWidth) / 2}px`,
           ease: "none",
           scrollTrigger: {
             trigger: article,
@@ -27,7 +29,7 @@ function Layout({ children }) {
         article.bg.style.backgroundPosition = "80% 0px";
 
         gsap.to(article.bg, {
-          backgroundPosition: `80% ${-innerHeight / 2}px`,
+          backgroundPosition: `80% ${-Math.min(innerHeight, innerWidth) / 2}px`,
           ease: "none",
           scrollTrigger: {
             trigger: article,
@@ -41,9 +43,7 @@ function Layout({ children }) {
   }, []);
   return (
     <Fragment>
-      <main className="text-white" style={{ backgroundColor: "#212121" }}>
-        {children}
-      </main>
+      <main className="text-white">{children}</main>
     </Fragment>
   );
 }
