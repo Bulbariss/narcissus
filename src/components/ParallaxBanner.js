@@ -19,7 +19,9 @@ const ParallaxBanner = ({ image }) => {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          background-position: 50%;
+           {
+            /* background-position: 50%; */
+          }
           transform: translateZ(0);
         }
       `}</style>

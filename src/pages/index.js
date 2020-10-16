@@ -9,8 +9,8 @@ import Video from "../components/Video";
 import ParallaxBanner from "../components/ParallaxBanner";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
-import koshka from "../images/koshka_pink.png";
 import threeL from "../images/collages/3L.jpg";
+import koshka from "../images/koshka_pink.png";
 import fourL from "../images/collages/4L.jpg";
 import bg from "../images/image.jpg";
 import psychologist from "../images/psychologist.jpg";
@@ -19,7 +19,6 @@ import { gsap } from "gsap";
 
 function IndexPage() {
   const [isLandscape, setIsLandscape] = useState(false);
-
   const ori =
     typeof window !== `undefined` &&
     window.matchMedia("(orientation: landscape)");
@@ -43,14 +42,14 @@ function IndexPage() {
         article.bg = article.querySelector(".parallax-bg");
         // Do the parallax effect on each article
         if (i) {
-          article.bg.style.transform = `translate3d(0px, -${
+          article.bg.style.transform = `translate(0px, -${
             document.documentElement.clientHeight / 2
-          }px, 0px)`;
+          }px)`;
 
           gsap.to(article.bg, {
-            transform: `translate3d(0px, ${
+            transform: `translate(0px, ${
               document.documentElement.clientHeight / 2
-            }px, 0px)`,
+            }px)`,
             ease: "none",
             scrollTrigger: {
               trigger: article,
@@ -61,14 +60,14 @@ function IndexPage() {
 
         // the first image should be positioned against the top. Use px on the animating part to work with GSAP.
         else {
-          article.bg.style.transform = `translate3d(0px, -${
+          article.bg.style.transform = `translate(0px, -${
             document.documentElement.clientHeight / 2
-          }px, 0px)`;
+          }px)`;
 
           gsap.to(article.bg, {
-            transform: `translate3d(0px, ${
+            transform: `translate(0px, ${
               document.documentElement.clientHeight / 2
-            }px, 0px)`,
+            }px)`,
             ease: "none",
             scrollTrigger: {
               trigger: article,
@@ -77,7 +76,7 @@ function IndexPage() {
           });
         }
       });
-    }, 300);
+    }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
