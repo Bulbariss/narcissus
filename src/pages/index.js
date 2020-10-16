@@ -33,29 +33,30 @@ function IndexPage() {
     threshold: 0.7,
   });
 
-  gsap.registerPlugin(ScrollTrigger);
-
   useEffect(() => {
     setIsLandscape(ori.matches);
-    gsap.utils.toArray(".parallax").forEach((article) => {
-      article.bg = article.querySelector(".parallax-bg");
-      // Do the parallax effect on each article
+    setTimeout(() => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray(".parallax").forEach((article) => {
+        article.bg = article.querySelector(".parallax-bg");
+        // Do the parallax effect on each article
 
-      article.bg.style.backgroundPosition = `50% -${
-        document.documentElement.clientHeight / 2
-      }px`;
-
-      gsap.to(article.bg, {
-        backgroundPosition: `50% ${
+        article.bg.style.backgroundPosition = `50% -${
           document.documentElement.clientHeight / 2
-        }px`,
-        ease: "none",
-        scrollTrigger: {
-          trigger: article,
-          scrub: true,
-        },
+        }px`;
+
+        gsap.to(article.bg, {
+          backgroundPosition: `50% ${
+            document.documentElement.clientHeight / 2
+          }px`,
+          ease: "none",
+          scrollTrigger: {
+            trigger: article,
+            scrub: true,
+          },
+        });
       });
-    });
+    }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -77,7 +78,6 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
-      <ParallaxBanner image={threeL} />
       <ParallaxBanner image={threeL} />
       <Text text={textVictimOne} image={bg} />
       <div className="flex flex-col items-center pt-20">
