@@ -37,46 +37,25 @@ function IndexPage() {
 
   useEffect(() => {
     setIsLandscape(ori.matches);
-    setTimeout(() => {
-      gsap.utils.toArray(".parallax").forEach((article, i) => {
-        article.bg = article.querySelector(".parallax-bg");
-        // Do the parallax effect on each article
-        if (i) {
-          article.bg.style.transform = `translate(0px, -${
-            document.documentElement.clientHeight / 2
-          }px)`;
+    gsap.utils.toArray(".parallax").forEach((article) => {
+      article.bg = article.querySelector(".parallax-bg");
+      // Do the parallax effect on each article
 
-          gsap.to(article.bg, {
-            transform: `translate(0px, ${
-              document.documentElement.clientHeight / 2
-            }px)`,
-            ease: "none",
-            scrollTrigger: {
-              trigger: article,
-              scrub: true,
-            },
-          });
-        }
+      article.bg.style.backgroundPosition = `50% -${
+        document.documentElement.clientHeight / 2
+      }px`;
 
-        // the first image should be positioned against the top. Use px on the animating part to work with GSAP.
-        else {
-          article.bg.style.transform = `translate(0px, -${
-            document.documentElement.clientHeight / 2
-          }px)`;
-
-          gsap.to(article.bg, {
-            transform: `translate(0px, ${
-              document.documentElement.clientHeight / 2
-            }px)`,
-            ease: "none",
-            scrollTrigger: {
-              trigger: article,
-              scrub: true,
-            },
-          });
-        }
+      gsap.to(article.bg, {
+        backgroundPosition: `50% ${
+          document.documentElement.clientHeight / 2
+        }px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: article,
+          scrub: true,
+        },
       });
-    }, 200);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -98,6 +77,7 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
+      <ParallaxBanner image={threeL} />
       <ParallaxBanner image={threeL} />
       <Text text={textVictimOne} image={bg} />
       <div className="flex flex-col items-center pt-20">
