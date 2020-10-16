@@ -76,7 +76,10 @@ textarea::-webkit-input-placeholder {
   color: #52606d;
   line-height: 1.5;
 } */
-
+:root {
+  --pix1: 0px;
+  --pix2: 0px;
+}
 ::selection {
   background: #ccff00;
   color: #000;

@@ -14,77 +14,70 @@ import threeL from "../images/collages/3L.jpg";
 import fourL from "../images/collages/4L.jpg";
 import bg from "../images/image.jpg";
 import psychologist from "../images/psychologist.jpg";
-import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
 
 function IndexPage() {
-  const landscapeMediaQuery =
-    typeof window !== `undefined` &&
-    window.matchMedia("(orientation: landscape)");
   const [isLandscape, setIsLandscape] = useState(false);
 
+  const ori =
+    typeof window !== `undefined` &&
+    window.matchMedia("(orientation: landscape)");
+
   if (typeof window !== `undefined`) {
-    landscapeMediaQuery.addListener((e) => {
+    ori.addListener((e) => {
       const darkModeOn = e.matches;
       setIsLandscape(darkModeOn);
     });
   }
-
   const [ref, entry] = useIntersect({
     threshold: 0.7,
   });
 
   gsap.registerPlugin(ScrollTrigger);
+
   useEffect(() => {
-    setIsLandscape(landscapeMediaQuery.matches);
+    setIsLandscape(ori.matches);
+    setTimeout(() => {
+      gsap.utils.toArray(".parallax").forEach((article, i) => {
+        article.bg = article.querySelector(".parallax-bg");
+        // Do the parallax effect on each article
+        if (i) {
+          article.bg.style.transform = `translate3d(0px, -${
+            document.documentElement.clientHeight / 2
+          }px, 0px)`;
 
-    gsap.utils.toArray(".parallax").forEach((article, i) => {
-      article.bg = article.querySelector(".parallax-bg");
-      // Do the parallax effect on each article
-      if (i) {
-        article.bg.style.backgroundPosition = `80% ${
-          Math.min(
-            document.documentElement.clientHeight,
-            document.documentElement.clientWidth
-          ) / 2
-        }px`;
+          gsap.to(article.bg, {
+            transform: `translate3d(0px, ${
+              document.documentElement.clientHeight / 2
+            }px, 0px)`,
+            ease: "none",
+            scrollTrigger: {
+              trigger: article,
+              scrub: true,
+            },
+          });
+        }
 
-        gsap.to(article.bg, {
-          backgroundPosition: `80% ${
-            -Math.min(
-              document.documentElement.clientHeight,
-              document.documentElement.clientWidth
-            ) / 2
-          }px`,
-          ease: "none",
-          scrollTrigger: {
-            trigger: article,
-            scrub: true,
-          },
-        });
-      }
+        // the first image should be positioned against the top. Use px on the animating part to work with GSAP.
+        else {
+          article.bg.style.transform = `translate3d(0px, -${
+            document.documentElement.clientHeight / 2
+          }px, 0px)`;
 
-      // the first image should be positioned against the top. Use px on the animating part to work with GSAP.
-      else {
-        article.bg.style.backgroundPosition = "80% 0px";
-
-        gsap.to(article.bg, {
-          backgroundPosition: `80% ${
-            -Math.min(
-              document.documentElement.clientHeight,
-              document.documentElement.clientWidth
-            ) / 2
-          }px`,
-          ease: "none",
-          scrollTrigger: {
-            trigger: article,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-    });
+          gsap.to(article.bg, {
+            transform: `translate3d(0px, ${
+              document.documentElement.clientHeight / 2
+            }px, 0px)`,
+            ease: "none",
+            scrollTrigger: {
+              trigger: article,
+              scrub: true,
+            },
+          });
+        }
+      });
+    }, 300);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
