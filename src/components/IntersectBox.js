@@ -8,9 +8,7 @@ const IntersectBox = memo(({ image }) => {
   let latestKnownScrollY = 0;
   let ticking = false;
 
-  let [clientHeight, setClientHeight] = useState(
-    typeof window !== `undefined` && window.screen.height
-  );
+  let [clientHeight, setClientHeight] = useState();
   const inViewPort = useInViewport(ref);
 
   function update() {
