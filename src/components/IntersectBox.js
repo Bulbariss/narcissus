@@ -4,7 +4,9 @@ import { useInViewport, useEventListener } from "ahooks";
 const IntersectBox = ({ image }) => {
   const ref = useRef();
   const img = useRef();
-  const clientHeight = useRef(window.screen.height);
+  const clientHeight = useRef(
+    typeof window !== `undefined` && window.screen.height
+  );
   const inViewPort = useInViewport(ref);
   let myReq = useRef();
 
