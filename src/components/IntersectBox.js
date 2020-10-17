@@ -51,7 +51,9 @@ const IntersectBox = memo(({ image }) => {
   }, [inViewPort]);
 
   useEffect(() => {
-    setClientHeight(window.screen.height);
+    setTimeout(() => {
+      setClientHeight(window.screen.height);
+    }, 200);
   }, []);
   return (
     <div
