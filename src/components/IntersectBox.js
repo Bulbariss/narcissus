@@ -10,19 +10,17 @@ const IntersectBox = memo(({ image }) => {
   const inViewPort = useInViewport(ref);
 
   const onScroll = () => {
-    if (inViewPort) {
-      img.current.style.transform = `translateY(${
-        -0.5 * ref.current.getBoundingClientRect().y
-      }px)`;
-    }
+    img.current.style.backgroundPosition = `50% ${
+      -0.5 * ref.current.getBoundingClientRect().y
+    }px`;
   };
 
   const onResize = () => {
     if (clientHeight.current !== window.screen.height) {
       setClientHeight(window.screen.height);
-      img.current.style.transform = `translateY(${
+      img.current.style.backgroundPosition = `50% ${
         -0.5 * ref.current.getBoundingClientRect().y
-      }px)`;
+      }px`;
     }
   };
 
