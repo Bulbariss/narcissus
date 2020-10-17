@@ -59,7 +59,11 @@ const IntersectBox = memo(({ image }) => {
     <div
       className="relative h-screen"
       ref={ref}
-      style={{ zIndex: "-1", transform: "translateZ(0)", height: clientHeight }}
+      style={{
+        zIndex: "-1",
+        transform: "translateZ(0)",
+        height: clientHeight + "px",
+      }}
     >
       <div
         ref={img}
