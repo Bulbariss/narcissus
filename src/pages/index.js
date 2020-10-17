@@ -42,11 +42,11 @@ function IndexPage() {
         // Do the parallax effect on each article
 
         article.bg.style.backgroundPosition = `50% -${
-          article.offsetHeight / 2
+          window.innerHeight / 2
         }px`;
 
         gsap.to(article.bg, {
-          backgroundPosition: `50% ${article.offsetHeight / 2}px`,
+          backgroundPosition: `50% ${window.innerHeight / 2}px`,
           ease: "none",
           scrollTrigger: {
             trigger: article,
