@@ -51,6 +51,10 @@ const IntersectBox = memo(({ image }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inViewPort]);
+
+  useEffect(() => {
+    setClientHeight(window.screen.height);
+  }, []);
   return (
     <div
       className="relative h-screen"
