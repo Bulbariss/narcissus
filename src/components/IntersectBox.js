@@ -1,40 +1,47 @@
 import React, { useRef, useEffect, useState, memo } from "react";
 import { useInViewport } from "ahooks";
-import { throttle } from "lodash";
 
 const IntersectBox = memo(({ image }) => {
   const ref = useRef();
   const img = useRef();
 
+  let waiting = false;
+
   let [clientHeight, setClientHeight] = useState();
   const inViewPort = useInViewport(ref);
 
   const onScroll = () => {
-    img.current.style.backgroundPosition = `50% ${
-      -0.5 * ref.current.getBoundingClientRect().y
-    }px`;
+    if (!waiting) {
+      img.current.style.transform = `translateY(${
+        -0.5 * ref.current.getBoundingClientRect().y
+      }px)`;
+      waiting = true;
+      setTimeout(function () {
+        waiting = false;
+      }, 16);
+    }
   };
 
   const onResize = () => {
-    if (clientHeight.current !== window.screen.height) {
+    if (clientHeight !== window.screen.height) {
       setClientHeight(window.screen.height);
-      img.current.style.backgroundPosition = `50% ${
+      img.current.style.transform = `translateY(${
         -0.5 * ref.current.getBoundingClientRect().y
-      }px`;
+      }px)`;
     }
   };
 
   useEffect(() => {
     if (inViewPort) {
       window.addEventListener("resize", onResize);
-      window.addEventListener("scroll", throttle(onScroll, 20), false);
+      window.addEventListener("scroll", onScroll, false);
     } else {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", throttle(onScroll, 20), false);
+      window.removeEventListener("scroll", onScroll, false);
     }
     return () => {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", throttle(onScroll, 20), false);
+      window.removeEventListener("scroll", onScroll, false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inViewPort]);
