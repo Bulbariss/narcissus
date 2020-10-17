@@ -16,9 +16,11 @@ import bg from "../images/image.jpg";
 import psychologist from "../images/psychologist.jpg";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
+import { useEventListener } from "ahooks";
 
 function IndexPage() {
   const [isLandscape, setIsLandscape] = useState(false);
+  const [height, setHeight] = useState();
   const ori =
     typeof window !== `undefined` &&
     window.matchMedia("(orientation: landscape)");
@@ -32,15 +34,19 @@ function IndexPage() {
   const [ref, entry] = useIntersect({
     threshold: 0.7,
   });
+  const onResize = () => {
+    setHeight(window.innerHeight + "px");
+  };
 
+  useEventListener("resize", onResize);
   useEffect(() => {
+    onResize();
     setIsLandscape(ori.matches);
     setTimeout(() => {
       gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray(".parallax").forEach((article) => {
         article.bg = article.querySelector(".parallax-bg");
         // Do the parallax effect on each article
-
         article.bg.style.backgroundPosition = `50% -${
           window.innerHeight / 2
         }px`;
@@ -68,7 +74,7 @@ function IndexPage() {
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
       <Video ref={ref} playing={entry.isIntersecting} />
-      <ParallaxBanner image={fourL} />
+      <ParallaxBanner image={fourL} height={height} />
       <TextBlock
         image={bg}
         heading="Мнение Психолога"
@@ -76,7 +82,7 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
-      <ParallaxBanner image={threeL} />
+      <ParallaxBanner image={threeL} height={height} />
       <Text text={textVictimOne} image={bg} />
       <div className="flex flex-col items-center pt-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">

@@ -1,18 +1,23 @@
-import React from "react";
+import React, { memo } from "react";
 
-const ParallaxBanner = ({ image }) => {
+const ParallaxBanner = memo(({ image, height }) => {
   return (
-    <div className="relative w-screen h-screen parallax">
+    <div
+      className="relative w-screen parallax"
+      style={{
+        height: height,
+      }}
+    >
       <div
-        className="absolute top-0 left-0 w-screen bg-center bg-no-repeat bg-cover parallax-bg"
+        className="absolute top-0 left-0 w-full h-full bg-center bg-no-repeat bg-cover parallax-bg"
         style={{
           backgroundImage: `url(${image})`,
-          zIndex: "-1",
-          height: window.innerHeight,
         }}
       />
     </div>
   );
-};
+});
+
+ParallaxBanner.displayName = "ParallaxBanner";
 
 export default ParallaxBanner;
