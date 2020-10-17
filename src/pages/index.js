@@ -14,13 +14,11 @@ import koshka from "../images/koshka_pink.png";
 import fourL from "../images/collages/4L.jpg";
 import bg from "../images/image.jpg";
 import psychologist from "../images/psychologist.jpg";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
-import { useEventListener } from "ahooks";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function IndexPage() {
   const [isLandscape, setIsLandscape] = useState(false);
-  const [height, setHeight] = useState();
   const ori =
     typeof window !== `undefined` &&
     window.matchMedia("(orientation: landscape)");
@@ -34,31 +32,35 @@ function IndexPage() {
   const [ref, entry] = useIntersect({
     threshold: 0.7,
   });
-  const onResize = () => {
-    setHeight(window.innerHeight + "px");
-  };
 
-  useEventListener("resize", onResize);
   useEffect(() => {
-    onResize();
     setIsLandscape(ori.matches);
     setTimeout(() => {
       gsap.registerPlugin(ScrollTrigger);
       gsap.utils.toArray(".parallax").forEach((article) => {
         article.bg = article.querySelector(".parallax-bg");
         // Do the parallax effect on each article
-        article.bg.style.backgroundPosition = `50% -${
+        // article.bg.style.backgroundPosition = `50% -${
+        //   window.innerHeight / 2
+        // }px`;
+        // article.bg.style.transform = `translateY(-${window.innerHeight / 2}px)`;
+        article.style.height = window.innerHeight + "px";
+        article.bg.style.transform = `matrix(1, 0, 0, 1, 0, -${
           window.innerHeight / 2
-        }px`;
-
-        gsap.to(article.bg, {
-          backgroundPosition: `50% ${window.innerHeight / 2}px`,
-          ease: "none",
-          scrollTrigger: {
-            trigger: article,
-            scrub: true,
-          },
-        });
+        })`;
+        gsap.to(article, {
+          height: window.innerHeight + "px",
+        }),
+          gsap.to(article.bg, {
+            // backgroundPosition: `50% ${window.innerHeight / 2}px`,
+            // translateY: `${window.innerHeight / 2}px`,
+            transform: `matrix(1, 0, 0, 1, 0, ${window.innerHeight / 2})`,
+            ease: "none",
+            scrollTrigger: {
+              trigger: article,
+              scrub: true,
+            },
+          });
       });
     }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +76,7 @@ function IndexPage() {
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
       <Video ref={ref} playing={entry.isIntersecting} />
-      <ParallaxBanner image={fourL} height={height} />
+      <ParallaxBanner image={fourL} />
       <TextBlock
         image={bg}
         heading="Мнение Психолога"
@@ -82,7 +84,7 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
-      <ParallaxBanner image={threeL} height={height} />
+      <ParallaxBanner image={threeL} />
       <Text text={textVictimOne} image={bg} />
       <div className="flex flex-col items-center pt-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
