@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useInViewport, useEventListener } from "ahooks";
+import React, { useRef, useEffect, useState, memo } from "react";
+import { useInViewport } from "ahooks";
 
-const IntersectBox = ({ image }) => {
+const IntersectBox = memo(({ image }) => {
   const ref = useRef();
   const img = useRef();
 
@@ -37,14 +37,16 @@ const IntersectBox = ({ image }) => {
     }
   };
 
-  useEventListener("resize", onResize);
   useEffect(() => {
     if (inViewPort) {
+      window.addEventListener("resize", onResize);
       window.addEventListener("scroll", onScroll, false);
     } else {
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScroll, false);
     }
     return () => {
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScroll, false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,7 +67,7 @@ const IntersectBox = ({ image }) => {
       ></div>
     </div>
   );
-};
+});
 
 IntersectBox.displayName = "IntersectBox";
 
