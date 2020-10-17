@@ -1,51 +1,42 @@
 import React, { useRef, useEffect, useState, memo } from "react";
 import { useInViewport } from "ahooks";
+import { throttle } from "lodash";
 
 const IntersectBox = memo(({ image }) => {
   const ref = useRef();
   const img = useRef();
 
-  let latestKnownScrollY = 0;
-  let ticking = false;
-
   let [clientHeight, setClientHeight] = useState();
   const inViewPort = useInViewport(ref);
 
-  function update() {
-    ticking = false;
-    img.current.style.transform = `translateY(${latestKnownScrollY}px)`;
-  }
-
-  function onScroll() {
-    latestKnownScrollY = -0.5 * ref.current.getBoundingClientRect().y;
-    requestTick();
-  }
-
-  function requestTick() {
-    if (!ticking) {
-      requestAnimationFrame(update);
+  const onScroll = () => {
+    if (inViewPort) {
+      img.current.style.transform = `translateY(${
+        -0.5 * ref.current.getBoundingClientRect().y
+      }px)`;
     }
-    ticking = true;
-  }
+  };
 
   const onResize = () => {
     if (clientHeight.current !== window.screen.height) {
       setClientHeight(window.screen.height);
-      img.current.style.transform = `translateY(${latestKnownScrollY}px)`;
+      img.current.style.transform = `translateY(${
+        -0.5 * ref.current.getBoundingClientRect().y
+      }px)`;
     }
   };
 
   useEffect(() => {
     if (inViewPort) {
       window.addEventListener("resize", onResize);
-      window.addEventListener("scroll", onScroll, false);
+      window.addEventListener("scroll", throttle(onScroll, 20), false);
     } else {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onScroll, false);
+      window.removeEventListener("scroll", throttle(onScroll, 20), false);
     }
     return () => {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onScroll, false);
+      window.removeEventListener("scroll", throttle(onScroll, 20), false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inViewPort]);
