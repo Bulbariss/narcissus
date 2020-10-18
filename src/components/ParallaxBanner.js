@@ -1,35 +1,23 @@
 import React, { memo } from "react";
 
-const ParallaxBanner = memo(({ image, isLandscape }) => {
+const ParallaxBanner = memo(({ image, clientHeight, clientHeight2 }) => {
   return (
     <div
-      className="relative w-screen parallax"
+      className="relative h-screen"
       style={{
-        transform: "translateZ(0)",
         zIndex: "-1",
+        transform: "translateZ(0)",
+        height: clientHeight * 2 + "px",
       }}
     >
-      <img
-        src={image}
-        alt="u"
-        className={`${
-          !isLandscape ? "w-auto h-auto" : "w-auto h-auto"
-        }  top-0 left-0  bg-center bg-no-repeat bg-cover parallax-bg `}
-        style={{
-          backfaceVisibility: "hidden",
-          perspective: "1000",
-          willChange: "transform",
-        }}
-      />
-      {/* <div
-        className="absolute top-0 left-0 w-full h-full bg-center bg-no-repeat bg-cover parallax-bg "
+      <div
+        // ref={ref}
+        className="absolute w-full h-full bg-center bg-no-repeat bg-cover test"
         style={{
           backgroundImage: `url(${image})`,
-          backfaceVisibility: "hidden",
-          perspective: "1000",
-          willChange: "transform",
+          transform: `translateY(${clientHeight2}px)`,
         }}
-      /> */}
+      />
     </div>
   );
 });

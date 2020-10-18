@@ -33,7 +33,6 @@ function IndexPage() {
 
   useEffect(() => {
     setIsLandscape(ori.matches);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

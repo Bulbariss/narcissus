@@ -3,31 +3,21 @@ import { useInViewport } from "ahooks";
 
 const IntersectBox = memo(({ image }) => {
   const ref = useRef();
-  const img = useRef();
-
-  let waiting = false;
+  const windowHeight = useRef();
 
   let [clientHeight, setClientHeight] = useState();
+  let [clientHeight2, setClientHeight2] = useState();
   const inViewPort = useInViewport(ref);
 
   const onScroll = () => {
-    if (!waiting) {
-      img.current.style.transform = `translateY(${
-        -0.5 * ref.current.getBoundingClientRect().y
-      }px)`;
-      waiting = true;
-      setTimeout(function () {
-        waiting = false;
-      }, 16);
-    }
+    setClientHeight2(-0.5 * ref.current.getBoundingClientRect().y);
   };
 
   const onResize = () => {
-    if (clientHeight !== window.screen.height) {
-      setClientHeight(window.screen.height);
-      img.current.style.transform = `translateY(${
-        -0.5 * ref.current.getBoundingClientRect().y
-      }px)`;
+    if (windowHeight !== window.screen.height) {
+      setClientHeight(window.innerHeight);
+      windowHeight.current = window.screen.height;
+      setClientHeight2(-0.5 * ref.current.getBoundingClientRect().y);
     }
   };
 
@@ -48,7 +38,8 @@ const IntersectBox = memo(({ image }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      setClientHeight(window.screen.height);
+      setClientHeight(window.innerHeight);
+      windowHeight.current = window.screen.height;
     }, 200);
   }, []);
   return (
@@ -62,13 +53,12 @@ const IntersectBox = memo(({ image }) => {
       }}
     >
       <div
-        ref={img}
         className="absolute w-full h-full bg-center bg-no-repeat bg-cover test"
         style={{
           backgroundImage: `url(${image})`,
-          backfaceVisibility: "hidden",
+          transform: `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${clientHeight2}, 0, 1)`,
         }}
-      ></div>
+      />
     </div>
   );
 });
