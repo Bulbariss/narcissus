@@ -12,7 +12,7 @@ const Video = forwardRef(({ playing }, ref) => {
     <div
       ref={ref}
       style={{ backgroundImage: `url(${Img})` }}
-      className={`relative w-screen`}
+      className={`relative w-screen z-10`}
     >
       <ReactPlayer
         id="react-player"

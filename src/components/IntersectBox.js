@@ -1,74 +1,79 @@
-import { useInViewport } from "ahooks";
 import React, { useRef, useEffect, useState, memo } from "react";
+import { useInViewport } from "ahooks";
 
 const IntersectBox = memo(({ image }) => {
-  const ref = useRef();
-  const ref2 = useRef();
+  const parentRef = useRef();
+  const childRef = useRef();
+
+  const offsetTop = useRef();
+  const offsetHeight = useRef();
   const windowHeight = useRef();
-  let [clientHeight, setClientHeight] = useState();
-  // let [clientHeight2, setClientHeight2] = useState();
-  const inViewPort = useInViewport(ref);
+
+  let [windowOuterHeight, setWindowOuterHeight] = useState(
+    typeof window !== `undefined` && window.outerHeight
+  );
+
+  const inViewPort = useInViewport(parentRef);
 
   // https://stackoverflow.com/questions/20223243/js-get-percentage-of-an-element-in-viewport
   const percentageSeen = () => {
-    const distance =
-      window.scrollY + windowHeight.current - ref.current.offsetTop;
-
-    let b = distance / (windowHeight.current + ref.current.offsetHeight) - 0.5;
-
-    return Math.min(0.5, Math.max(-0.5, b)) * clientHeight;
+    const distance = window.scrollY + windowHeight.current - offsetTop.current;
+    let b = distance / (windowHeight.current + offsetHeight.current) - 0.5;
+    return Math.round(Math.min(0.5, Math.max(-0.5, b)) * windowOuterHeight);
   };
 
   const onScroll = () => {
-    ref2.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${percentageSeen()}, 0, 1)`;
+    childRef.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${percentageSeen()}, 0, 1)`;
   };
 
   const onResize = () => {
-    if (clientHeight !== window.outerHeight) {
-      setClientHeight(window.outerHeight);
+    offsetHeight.current = parentRef.current.offsetHeight;
+    offsetTop.current = parentRef.current.offsetTop;
+    if (windowOuterHeight !== window.outerHeight) {
+      setWindowOuterHeight(window.outerHeight);
       windowHeight.current = window.innerHeight;
-      onScroll();
     }
+    onScroll();
   };
 
   useEffect(() => {
     window.addEventListener("resize", onResize);
     if (inViewPort) {
-      window.addEventListener("scroll", onScroll, false);
+      window.addEventListener("scroll", onScroll);
     } else {
-      window.removeEventListener("scroll", onScroll, false);
+      window.removeEventListener("scroll", onScroll);
     }
     return () => {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onScroll, false);
+      window.removeEventListener("scroll", onScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inViewPort]);
 
   useEffect(() => {
-    onResize();
+    windowHeight.current = window.innerHeight;
+    setTimeout(() => {
+      onResize();
+    }, 300);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div
       className="relative h-screen parallax-container"
-      ref={ref}
-      style={{ height: clientHeight + "px" }}
+      ref={parentRef}
+      style={{ height: windowOuterHeight + "px" }}
     >
       <div
-        ref={ref2}
+        ref={childRef}
         className="absolute w-full h-full bg-center bg-no-repeat bg-cover parallax"
-        // style={
-        //   {
-        //     // transform: `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${clientHeight2}, 0, 1)`,
-        //   }
-        // }
       />
       <style jsx>{`
         .parallax-container {
           z-index: -1;
-          transform: translateZ(0);
         }
         .parallax {
+          will-change: transform;
           background-image: url(${image});
         }
       `}</style>
