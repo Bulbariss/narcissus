@@ -28,7 +28,7 @@ const Video = forwardRef(({ playing }, ref) => {
       />
       {!play && (
         <div
-          className="absolute top-0 w-full h-full bg-cover"
+          className="absolute top-0 z-20 w-full h-full bg-cover"
           style={{ backgroundImage: `url(${Cover})` }}
         >
           <button className="absolute center-xy" onClick={() => setPlay(true)}>

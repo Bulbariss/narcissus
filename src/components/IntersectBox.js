@@ -1,33 +1,41 @@
-import React, { useRef, useEffect, useState, memo } from "react";
 import { useInViewport } from "ahooks";
+import React, { useRef, useEffect, useState, memo } from "react";
 
 const IntersectBox = memo(({ image }) => {
   const ref = useRef();
   const ref2 = useRef();
+  const windowHeight = useRef();
   let [clientHeight, setClientHeight] = useState();
   // let [clientHeight2, setClientHeight2] = useState();
   const inViewPort = useInViewport(ref);
 
+  // https://stackoverflow.com/questions/20223243/js-get-percentage-of-an-element-in-viewport
+  const percentageSeen = () => {
+    const distance =
+      window.scrollY + windowHeight.current - ref.current.offsetTop;
+
+    let b = distance / (windowHeight.current + ref.current.offsetHeight) - 0.5;
+
+    return Math.min(0.5, Math.max(-0.5, b)) * clientHeight;
+  };
+
   const onScroll = () => {
-    ref2.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${
-      -0.5 * ref.current.getBoundingClientRect().y
-    }, 0, 1)`;
-    // setClientHeight2(-0.5 * ref.current.getBoundingClientRect().y);
+    ref2.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${percentageSeen()}, 0, 1)`;
   };
 
   const onResize = () => {
-    if (clientHeight !== window.screen.height) {
-      setClientHeight(window.screen.height);
+    if (clientHeight !== window.outerHeight) {
+      setClientHeight(window.outerHeight);
+      windowHeight.current = window.innerHeight;
       onScroll();
     }
   };
 
   useEffect(() => {
+    window.addEventListener("resize", onResize);
     if (inViewPort) {
-      window.addEventListener("resize", onResize);
       window.addEventListener("scroll", onScroll, false);
     } else {
-      window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScroll, false);
     }
     return () => {
