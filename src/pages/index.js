@@ -9,32 +9,13 @@ import { textOne } from "../components/Texts";
 import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
+import threeL from "../images/collages/3L.jpg";
 import koshka from "../images/koshka_pink.png";
-// import threeL from "../images/collages/3L.jpg";
-// import fourL from "../images/collages/4L.jpg";
+import fourL from "../images/collages/4L.jpg";
 import bg from "../images/image.jpg";
 import psychologist from "../images/psychologist.jpg";
-import { graphql, useStaticQuery } from "gatsby";
 
 function IndexPage() {
-  const images = useStaticQuery(graphql`
-    fragment regularImage on File {
-      sharp: childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    query {
-      threeL: file(relativePath: { eq: "collages/3L.jpg" }) {
-        ...regularImage
-      }
-      fourL: file(relativePath: { eq: "collages/4L.jpg" }) {
-        ...regularImage
-      }
-    }
-  `);
-
   const [isLandscape, setIsLandscape] = useState(false);
   const ori =
     typeof window !== `undefined` &&
@@ -65,7 +46,7 @@ function IndexPage() {
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
       <Video ref={ref} playing={entry.isIntersecting} />
-      <IntersectBox image={images.threeL.sharp.fluid} />
+      <IntersectBox image={fourL} />
       <TextBlock
         image={bg}
         heading="Мнение Психолога"
@@ -73,7 +54,7 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
-      <IntersectBox image={images.threeL.sharp.fluid} />
+      <IntersectBox image={threeL} />
       <Text text={textVictimOne} image={bg} />
       <div className="flex flex-col items-center pt-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">

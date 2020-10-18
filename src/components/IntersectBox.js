@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState, memo } from "react";
 import { useInViewport } from "ahooks";
-import BackgroundImage from "gatsby-background-image";
 
 const IntersectBox = memo(({ image }) => {
   const ref = useRef();
@@ -11,7 +10,7 @@ const IntersectBox = memo(({ image }) => {
   const inViewPort = useInViewport(ref);
 
   const onScroll = () => {
-    ref2.current.selfRef.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${
+    ref2.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${
       -0.5 * ref.current.getBoundingClientRect().y
     }, 0, 1)`;
     // setClientHeight2(-0.5 * ref.current.getBoundingClientRect().y);
@@ -19,10 +18,9 @@ const IntersectBox = memo(({ image }) => {
 
   const onResize = () => {
     if (windowHeight.current !== window.screen.height) {
-      setClientHeight(window.innerHeight);
       windowHeight.current = window.screen.height;
-      // setClientHeight2(-0.5 * ref.current.getBoundingClientRect().y);
-      onScroll;
+      setClientHeight(window.innerHeight);
+      onScroll();
     }
   };
 
@@ -42,36 +40,32 @@ const IntersectBox = memo(({ image }) => {
   }, [inViewPort]);
 
   useEffect(() => {
-    setClientHeight(window.innerHeight);
-    windowHeight.current = window.screen.height;
+    onResize();
   }, []);
   return (
     <div
-      className="relative h-screen"
+      className="relative h-screen parallax-container"
       ref={ref}
-      style={{
-        zIndex: "-1",
-        transform: "translateZ(0)",
-        height: clientHeight + "px",
-      }}
+      style={{ height: clientHeight + "px" }}
     >
-      {/* <div
+      <div
         ref={ref2}
-        className="absolute w-full h-full bg-center bg-no-repeat bg-cover test"
-        style={{
-          backgroundImage: `url(${image})`,
-          // transform: `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${clientHeight2}, 0, 1)`,
-        }}
-      /> */}
-
-      <BackgroundImage
-        ref={ref2}
-        className="absolute w-full h-full bg-center bg-no-repeat bg-cover test"
-        // className="flex min-h-screen"
-        Tag="section"
-        fluid={image}
-        fadeIn="soft"
+        className="absolute w-full h-full bg-center bg-no-repeat bg-cover parallax"
+        // style={
+        //   {
+        //     // transform: `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${clientHeight2}, 0, 1)`,
+        //   }
+        // }
       />
+      <style jsx>{`
+        .parallax-container {
+          z-index: -1;
+          transform: translateZ(0);
+        }
+        .parallax {
+          background-image: url(${image});
+        }
+      `}</style>
     </div>
   );
 });
