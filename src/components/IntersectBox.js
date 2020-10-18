@@ -14,7 +14,7 @@ const IntersectBox = memo(({ image }) => {
   };
 
   const onResize = () => {
-    if (windowHeight !== window.screen.height) {
+    if (windowHeight.current !== window.screen.height) {
       setClientHeight(window.innerHeight);
       windowHeight.current = window.screen.height;
       setClientHeight2(-0.5 * ref.current.getBoundingClientRect().y);
