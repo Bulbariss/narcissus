@@ -4,7 +4,6 @@ import { useInViewport } from "ahooks";
 const IntersectBox = memo(({ image }) => {
   const ref = useRef();
   const ref2 = useRef();
-  const windowHeight = useRef();
   let [clientHeight, setClientHeight] = useState();
   // let [clientHeight2, setClientHeight2] = useState();
   const inViewPort = useInViewport(ref);
@@ -17,9 +16,8 @@ const IntersectBox = memo(({ image }) => {
   };
 
   const onResize = () => {
-    if (windowHeight.current !== window.screen.height) {
-      windowHeight.current = window.screen.height;
-      setClientHeight(window.innerHeight);
+    if (clientHeight !== window.screen.height) {
+      setClientHeight(window.screen.height);
       onScroll();
     }
   };
