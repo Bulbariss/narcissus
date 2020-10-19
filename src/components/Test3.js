@@ -9,6 +9,7 @@ const Test3 = memo(({ image }) => {
   let childRef = useRef();
   let parentRef = useRef();
 
+  
   const onScroll = () => {
     childRef.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${
       parentRef.current.getBoundingClientRect().y * -0.5
@@ -30,7 +31,7 @@ const Test3 = memo(({ image }) => {
   }, [entry]);
 
   return (
-    <div className="relative h-screen parallax-container" ref={parentRef}>
+    <div className="h-screen" ref={parentRef}>
       <div className="relative h-screen parallax-container" ref={ref}>
         <div
           ref={childRef}

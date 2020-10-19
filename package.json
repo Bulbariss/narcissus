@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Me",
   "dependencies": {
+    "@terwanerik/scrolltrigger": "^1.0.5",
     "ahooks": "^2.6.1",
     "gatsby": "2.24.72",
     "gatsby-background-image": "^1.1.2",

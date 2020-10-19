@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
-import Test3 from "../components/Test3";
+import Test3 from "../components/Test2";
 import Text from "../components/Text";
 import { textOne } from "../components/Texts";
 import Video from "../components/Video";
