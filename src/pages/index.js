@@ -10,7 +10,7 @@ import { textOne } from "../components/Texts";
 import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
-// import threeL from "../images/collages/3L.jpg";
+import threeL from "../images/collages/3L.jpg";
 import koshka from "../images/koshka_pink.png";
 import fourL from "../images/collages/4L.jpg";
 import bg from "../images/image.jpg";
