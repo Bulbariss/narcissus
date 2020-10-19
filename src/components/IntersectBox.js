@@ -32,6 +32,7 @@ const Test = memo(({ image }) => {
     offsetTop.current = parentRef.current.offsetTop;
     if (windowOuterHeight !== window.outerHeight) {
       setWindowOuterHeight(window.outerHeight);
+      childRef.current.style.height = windowOuterHeight;
       offsetHeight.current = parentRef.current.offsetHeight;
       // windowHeight.current = window.innerHeight;
     }
@@ -57,6 +58,7 @@ const Test = memo(({ image }) => {
     setTimeout(() => {
       offsetHeight.current = parentRef.current.offsetHeight;
       onResize();
+      childRef.current.style.height = windowOuterHeight + "px";
     }, 1300);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

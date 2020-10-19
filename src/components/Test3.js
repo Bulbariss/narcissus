@@ -1,33 +1,32 @@
 import React, { useEffect, memo, useRef } from "react";
 import useIntersect from "./utils/useIntersect";
 
-const Test = memo(({ image }) => {
+const Test3 = memo(({ image }) => {
   const [ref, entry] = useIntersect({
     threshold: 0,
   });
 
-  let timeout = useRef();
   let childRef = useRef();
   let parentRef = useRef();
-  let memory = useRef();
 
-  const run = () => {
-    if (memory.current !== parentRef.current.getBoundingClientRect().y)
-      memory.current = parentRef.current.getBoundingClientRect().y;
-    timeout.current = setInterval(() => {
-      childRef.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${
-        parentRef.current.getBoundingClientRect().y * -0.5
-      }, 0, 1)`;
-    }, 10);
+  const onScroll = () => {
+    childRef.current.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${
+      parentRef.current.getBoundingClientRect().y * -0.5
+    }, 0, 1)`;
   };
 
   useEffect(() => {
     if (entry.isIntersecting) {
-      run();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
     } else {
-      clearInterval(timeout.current);
+      window.removeEventListener("scroll", onScroll, { passive: true });
+      window.removeEventListener("resize", onScroll, { passive: true });
     }
-    return () => clearInterval(timeout.current);
+    return () => {
+      window.removeEventListener("scroll", onScroll, { passive: true });
+      window.removeEventListener("resize", onScroll, { passive: true });
+    };
   }, [entry]);
 
   return (
@@ -51,6 +50,6 @@ const Test = memo(({ image }) => {
   );
 });
 
-Test.displayName = "Test";
+Test3.displayName = "Test3";
 
-export default Test;
+export default Test3;
