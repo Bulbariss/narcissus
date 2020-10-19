@@ -21,7 +21,7 @@ const Test = memo(({ image }) => {
     // const distance = window.scrollY + windowHeight.current - offsetTop.current;
     // let b = distance / (windowHeight.current + offsetHeight.current) - 0.5;
     let b = distance / (offsetHeight.current + offsetHeight.current) - 0.5;
-    return Math.round(Math.min(0.5, Math.max(-0.5, b)) * offsetHeight.current);
+    return Math.round(Math.min(0.5, Math.max(-0.5, b)) * window.innerHeight);
   };
 
   const onScroll = () => {
