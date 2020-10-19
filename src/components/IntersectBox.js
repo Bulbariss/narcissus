@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState, memo } from "react";
 import { useInViewport } from "ahooks";
+import React, { useRef, useEffect, memo } from "react";
 
 const Test = memo(({ image }) => {
   const parentRef = useRef();
@@ -9,9 +9,9 @@ const Test = memo(({ image }) => {
   const offsetHeight = useRef();
   const windowHeight = useRef();
 
-  let [windowOuterHeight, setWindowOuterHeight] = useState(
-    typeof window !== `undefined` && window.outerHeight
-  );
+  // let [windowOuterHeight, setWindowOuterHeight] = useState(
+  //   typeof window !== `undefined` && window.outerHeight
+  // );
 
   const inViewPort = useInViewport(parentRef);
 
@@ -19,7 +19,7 @@ const Test = memo(({ image }) => {
   const percentageSeen = () => {
     const distance = window.scrollY + windowHeight.current - offsetTop.current;
     let b = distance / (windowHeight.current + offsetHeight.current) - 0.5;
-    return Math.round(Math.min(0.5, Math.max(-0.5, b)) * windowOuterHeight);
+    return Math.round(Math.min(0.5, Math.max(-0.5, b)) * offsetHeight.current);
   };
 
   const onScroll = () => {
@@ -29,23 +29,23 @@ const Test = memo(({ image }) => {
   const onResize = () => {
     offsetHeight.current = parentRef.current.offsetHeight;
     offsetTop.current = parentRef.current.offsetTop;
-    if (windowOuterHeight !== window.outerHeight) {
-      setWindowOuterHeight(window.outerHeight);
-      windowHeight.current = window.innerHeight;
-    }
+    // if (windowOuterHeight !== window.outerHeight) {
+    // setWindowOuterHeight(window.outerHeight);
+    windowHeight.current = window.innerHeight;
+    // }
     onScroll();
   };
 
   useEffect(() => {
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
     if (inViewPort) {
-      window.addEventListener("scroll", onScroll);
+      window.addEventListener("scroll", onScroll, { passive: true });
     } else {
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", onScroll, { passive: true });
     }
     return () => {
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize, { passive: true });
+      window.removeEventListener("scroll", onScroll, { passive: true });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inViewPort]);
@@ -62,11 +62,11 @@ const Test = memo(({ image }) => {
     <div
       className="relative h-screen parallax-container"
       ref={parentRef}
-      style={{ height: windowOuterHeight + "px" }}
+      // style={{ height: windowOuterHeight + "px" }}
     >
       <div
         ref={childRef}
-        className="absolute w-full h-full bg-center bg-no-repeat bg-cover parallax"
+        className="absolute w-full h-screen bg-center bg-no-repeat bg-cover parallax"
       />
       <style jsx>{`
         .parallax-container {
