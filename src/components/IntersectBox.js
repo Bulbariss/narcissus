@@ -1,5 +1,5 @@
 import { useInViewport } from "ahooks";
-import React, { useRef, useEffect, memo } from "react";
+import React, { useRef, useEffect, memo, useState } from "react";
 
 const Test = memo(({ image }) => {
   const parentRef = useRef();
@@ -7,18 +7,20 @@ const Test = memo(({ image }) => {
 
   const offsetTop = useRef();
   const offsetHeight = useRef();
-  const windowHeight = useRef();
+  // const windowHeight = useRef();
 
-  // let [windowOuterHeight, setWindowOuterHeight] = useState(
-  //   typeof window !== `undefined` && window.outerHeight
-  // );
+  let [windowOuterHeight, setWindowOuterHeight] = useState(
+    typeof window !== `undefined` && window.outerHeight
+  );
 
   const inViewPort = useInViewport(parentRef);
 
   // https://stackoverflow.com/questions/20223243/js-get-percentage-of-an-element-in-viewport
   const percentageSeen = () => {
-    const distance = window.scrollY + windowHeight.current - offsetTop.current;
-    let b = distance / (windowHeight.current + offsetHeight.current) - 0.5;
+    const distance = window.scrollY + offsetHeight.current - offsetTop.current;
+    // const distance = window.scrollY + windowHeight.current - offsetTop.current;
+    // let b = distance / (windowHeight.current + offsetHeight.current) - 0.5;
+    let b = distance / (offsetHeight.current + offsetHeight.current) - 0.5;
     return Math.round(Math.min(0.5, Math.max(-0.5, b)) * offsetHeight.current);
   };
 
@@ -27,12 +29,12 @@ const Test = memo(({ image }) => {
   };
 
   const onResize = () => {
-    offsetHeight.current = parentRef.current.offsetHeight;
     offsetTop.current = parentRef.current.offsetTop;
-    // if (windowOuterHeight !== window.outerHeight) {
-    // setWindowOuterHeight(window.outerHeight);
-    windowHeight.current = window.innerHeight;
-    // }
+    if (windowOuterHeight !== window.outerHeight) {
+      setWindowOuterHeight(window.outerHeight);
+      offsetHeight.current = parentRef.current.offsetHeight;
+      // windowHeight.current = window.innerHeight;
+    }
     onScroll();
   };
 
@@ -51,8 +53,9 @@ const Test = memo(({ image }) => {
   }, [inViewPort]);
 
   useEffect(() => {
-    windowHeight.current = window.innerHeight;
+    // windowHeight.current = window.innerHeight;
     setTimeout(() => {
+      offsetHeight.current = parentRef.current.offsetHeight;
       onResize();
     }, 1300);
     // eslint-disable-next-line react-hooks/exhaustive-deps
