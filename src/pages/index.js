@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout";
 import IntersectBox from "../components/IntersectBox";
+// import Test from "../components/Test";
+import Test2 from "../components/Test2";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
@@ -46,7 +48,8 @@ function IndexPage() {
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
       <Video ref={ref} playing={entry.isIntersecting} />
-      <IntersectBox image={fourL} />
+      <Test2 image={fourL} />
+      {/* <IntersectBox image={fourL} /> */}
       <TextBlock
         image={bg}
         heading="Мнение Психолога"

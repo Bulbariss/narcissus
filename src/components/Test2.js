@@ -62,19 +62,30 @@ const Test = memo(({ image }) => {
     <div
       className="relative h-screen parallax-container"
       ref={parentRef}
-      style={{ height: windowOuterHeight + "px" }}
+      //   style={{ height: windowOuterHeight + "px" }}
     >
-      <div
-        ref={childRef}
-        className="absolute w-full h-full bg-center bg-no-repeat bg-cover parallax"
-      />
+      <div ref={childRef} className="w-full h-screen parallax" />
       <style jsx>{`
         .parallax-container {
           z-index: -1;
         }
         .parallax {
           will-change: transform;
+        }
+        .parallax::after {
           background-image: url(${image});
+          will-change: transform;
+          background-position-x: 50%;
+          content: "";
+          position: fixed;
+          top: 0;
+          height: 100vh;
+          left: 0;
+          right: 0;
+          z-index: -1;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
       `}</style>
     </div>
