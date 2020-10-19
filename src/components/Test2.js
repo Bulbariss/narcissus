@@ -10,7 +10,7 @@ const Test3 = memo(({ image }) => {
   let parentRef = useRef();
 
   const onResize = () => {
-    childRef.current.style.height = window.outerHeight;
+    parentRef.current.style.height = window.outerHeight;
     onScroll();
   };
   const onScroll = () => {
@@ -49,15 +49,19 @@ const Test3 = memo(({ image }) => {
         capture: false,
       });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry]);
 
   return (
-    <div className="h-screen" ref={parentRef}>
-      <div className="relative h-screen parallax-container" ref={ref}>
+    <div
+      className="h-screen"
+      ref={parentRef}
+      style={{ height: window.outerHeight }}
+    >
+      <div className="relative h-full parallax-container" ref={ref}>
         <div
           ref={childRef}
-          style={{ height: window.outerHeight }}
-          className="absolute w-full h-screen bg-center bg-no-repeat bg-cover parallax"
+          className="absolute w-full h-full bg-center bg-no-repeat bg-cover parallax"
         />
         <style jsx>{`
           .parallax-container {
