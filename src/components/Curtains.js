@@ -1,10 +1,15 @@
 import { Curtains, Plane, Vec3 } from "curtainsjs";
 import React, { useEffect, useRef } from "react";
+import useIntersect from "./utils/useIntersect";
 
 const CurtainsJS = () => {
+  const [ref, entry] = useIntersect({
+    threshold: 0,
+  });
+
   let plane = useRef();
   let curtains = useRef();
-  let planeBBoxEl = useRef();
+  let parentRef = useRef();
 
   function init() {
     // set up our WebGL context and append the canvas to our wrapper
@@ -72,66 +77,68 @@ const CurtainsJS = () => {
     // create our plane.current
     plane.current = new Plane(curtains.current, planeElement[0], params);
 
-    planeBBoxEl.current = document.getElementById("plane-bounding-rect");
-
     // when our plane.current is ready, add the GUI and update its BBox viewer
     plane.current
       .onReady(() => {
         // add the GUI
-
-        updatePlaneBBoxViewer();
       })
-      .onAfterResize(() => {
-        updatePlaneBBoxViewer();
-      });
+      .onAfterResize(() => {});
 
     // once everything is ready, stop drawing the scene
     curtains.current.disableDrawing();
-  }
-  function updatePlaneBBoxViewer() {
-    // wait for next render to update the bounding rect sizes
-    curtains.current.nextRender(() => {
-      // update of bounding box size and position
-      const planeBBox = plane.current.getWebGLBoundingRect();
-
-      planeBBoxEl.current.style.width =
-        planeBBox.width / curtains.current.pixelRatio +
-        (plane.current.drawCheckMargins.right +
-          plane.current.drawCheckMargins.left) +
-        "px";
-      planeBBoxEl.current.style.height =
-        planeBBox.height / curtains.current.pixelRatio +
-        (plane.current.drawCheckMargins.top +
-          plane.current.drawCheckMargins.bottom) +
-        "px";
-      planeBBoxEl.current.style.top =
-        planeBBox.top / curtains.current.pixelRatio -
-        plane.current.drawCheckMargins.top +
-        "px";
-      planeBBoxEl.current.style.left =
-        planeBBox.left / curtains.current.pixelRatio -
-        plane.current.drawCheckMargins.left +
-        "px";
-    });
   }
 
   useEffect(() => {
     init();
   }, []);
-  setTimeout(() => {
+  useEffect(() => {
+    if (entry.isIntersecting) {
+      window.addEventListener("scroll", onScroll, {
+        passive: true,
+        capture: false,
+      });
+      window.addEventListener("resize", onScroll, {
+        passive: true,
+        capture: false,
+      });
+    } else {
+      window.removeEventListener("scroll", onScroll, {
+        passive: true,
+        capture: false,
+      });
+      window.removeEventListener("resize", onScroll, {
+        passive: true,
+        capture: false,
+      });
+    }
+    return () => {
+      window.removeEventListener("scroll", onScroll, {
+        passive: true,
+        capture: false,
+      });
+      window.removeEventListener("resize", onScroll, {
+        passive: true,
+        capture: false,
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry]);
+
+  const onScroll = () => {
     plane.current.setRelativeTranslation(
       new Vec3(
         plane.current.relativeTranslation.x,
-        -100,
+        parentRef.current.getBoundingClientRect().y * -1,
         plane.current.relativeTranslation.z
       )
     );
     curtains.current.needRender();
-    updatePlaneBBoxViewer();
-  }, 5000);
+    // updatePlaneBBoxViewer();
+  };
+
   return (
-    <div>
-      <div id="page-wrap">
+    <div ref={ref}>
+      <div id="page-wrap" ref={parentRef}>
         <div id="canvas"></div>
 
         <div className="plane">
@@ -141,7 +148,6 @@ const CurtainsJS = () => {
             alt="2"
           />
         </div>
-        <div id="plane-bounding-rect"></div>
       </div>
       <style jsx>{`
         @media screen {
@@ -226,15 +232,6 @@ const CurtainsJS = () => {
             min-height: 100%;
             object-fit: cover;
             opacity: 0.2;
-          }
-
-          #plane-bounding-rect {
-            position: absolute;
-            background: red;
-            opacity: 0.2;
-            pointer-events: none;
-            display: block;
-            z-index: 3;
           }
 
           /*** handling errors ***/
