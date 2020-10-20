@@ -5,6 +5,7 @@ import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
 import Test3 from "../components/Test2";
+import CurtainsJS from "../components/Curtains";
 import Text from "../components/Text";
 import { textOne } from "../components/Texts";
 import Video from "../components/Video";
@@ -45,6 +46,7 @@ function IndexPage() {
       <SEO title="Главная" description="" pathname="/" />
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
+      <CurtainsJS />
       <Video ref={ref} playing={entry.isIntersecting} />
       <Test3 image={fourL} />
       <TextBlock
