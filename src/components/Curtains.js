@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { Curtains, Plane, Vec3 } from "curtainsjs";
 import useIntersect from "./utils/useIntersect";
+import { Curtains, Plane, Vec3 } from "curtainsjs";
 
-const CurtainsJS = () => {
+const CurtainsJS = ({ image }) => {
   const [ref, entry] = useIntersect({
     threshold: 0,
   });
@@ -71,6 +71,11 @@ const CurtainsJS = () => {
     const params = {
       vertexShader: vs,
       fragmentShader: fs,
+      production: true,
+      alpha: false,
+      antialias: false,
+      depth: false,
+      autoRender: false,
       //   texturesOptions: {
       //     anisotropy: 16, // set anisotropy to a max so the texture isn't blurred when the plane.current's rotated
       //   },
@@ -137,13 +142,8 @@ const CurtainsJS = () => {
     <div ref={ref}>
       <div id="page-wrap" ref={parentRef}>
         <div id="canvas" ref={canvas}></div>
-
         <div className="plane" ref={planeElement}>
-          <img
-            src="http://localhost:8000/static/4L-632bc53e2e728270bc81bfb848fc68da.jpg"
-            data-sampler="planeTexture"
-            alt="2"
-          />
+          <img src={image} data-sampler="planeTexture" alt="2" />
         </div>
       </div>
       <style jsx>{`

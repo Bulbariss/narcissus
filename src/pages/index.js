@@ -10,10 +10,10 @@ import Text from "../components/Text";
 import { textOne } from "../components/Texts";
 import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
-// import threeL from "../images/collages/3L.jpg";
+import threeL from "../images/collages/3L.jpg";
+import fourL from "../images/collages/4L.jpg";
 import SecondScreen from "../components/page_pieces/SecondScreen";
 import koshka from "../images/koshka_pink.png";
-// import fourL from "../images/collages/4L.jpg";
 import bg from "../images/image.jpg";
 import psychologist from "../images/psychologist.jpg";
 
@@ -47,7 +47,7 @@ function IndexPage() {
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
       <Video ref={ref} playing={entry.isIntersecting} />
-      <CurtainsJS />
+      <CurtainsJS image={fourL} />
       {/* <Test3 image={fourL} /> */}
       <TextBlock
         image={bg}
@@ -57,7 +57,7 @@ function IndexPage() {
         img={psychologist}
       />
       {/* <Test3 image={threeL} /> */}
-      <CurtainsJS />
+      <CurtainsJS image={threeL} />
       <Text text={textVictimOne} image={bg} />
       <div className="flex flex-col items-center pt-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
