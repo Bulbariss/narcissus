@@ -4,9 +4,7 @@
   "version": "1.0.0",
   "author": "Me",
   "dependencies": {
-    "@terwanerik/scrolltrigger": "^1.0.5",
     "ahooks": "^2.6.1",
-    "baboon-image": "^2.1.0",
     "curtainsjs": "^7.1.1",
     "gatsby": "2.24.72",
     "gatsby-background-image": "^1.1.2",
@@ -20,14 +18,12 @@
     "gatsby-plugin-styled-jsx": "^3.3.14",
     "gatsby-source-filesystem": "^2.3.34",
     "gatsby-transformer-sharp": "^2.5.17",
-    "lodash": "^4.17.20",
     "postcss": "^7.0.32",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "6.1.0",
-    "react-player": "^2.6.2",
-    "regl": "^2.0.1"
+    "react-player": "^2.6.2"
   },
   "license": "MIT",
   "scripts": {

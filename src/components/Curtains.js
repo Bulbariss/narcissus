@@ -7,6 +7,7 @@ const CurtainsJS = ({ image }) => {
     threshold: 0,
   });
 
+  var waiting = false; // Initially, we're not waiting
   let plane = useRef();
   let curtains = useRef();
   let parentRef = useRef();
@@ -18,6 +19,10 @@ const CurtainsJS = ({ image }) => {
     curtains.current = new Curtains({
       container: canvas.current,
       watchScroll: false, // no need to listen for the scroll in this example
+      antialias: false,
+      alpha: false,
+      depth: false,
+      production: true,
       pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
     });
 
@@ -31,9 +36,6 @@ const CurtainsJS = ({ image }) => {
         // on context lost, try to restore the context
         curtains.current.restoreContext();
       });
-
-    // get our plane.current element
-    // const planeElement = document.getElementsByClassName("plane");
 
     const vs = `
         precision mediump float;
@@ -76,20 +78,11 @@ const CurtainsJS = ({ image }) => {
       antialias: false,
       depth: false,
       autoRender: false,
-      //   texturesOptions: {
-      //     anisotropy: 16, // set anisotropy to a max so the texture isn't blurred when the plane.current's rotated
-      //   },
+      watchScroll: false,
     };
 
     // create our plane.current
     plane.current = new Plane(curtains.current, planeElement.current, params);
-
-    // when our plane.current is ready, add the GUI and update its BBox viewer
-    plane.current
-      .onReady(() => {
-        // add the GUI
-      })
-      .onAfterResize(() => {});
 
     // once everything is ready, stop drawing the scene
     curtains.current.disableDrawing();
@@ -97,6 +90,8 @@ const CurtainsJS = ({ image }) => {
 
   useEffect(() => {
     init();
+    onScroll();
+    plane.current.updatePosition();
   }, []);
   useEffect(() => {
     if (entry.isIntersecting) {
@@ -132,75 +127,86 @@ const CurtainsJS = ({ image }) => {
   }, [entry]);
 
   const onScroll = () => {
-    plane.current.setRelativeTranslation(
-      new Vec3(0, parentRef.current.getBoundingClientRect().y * -0.5, 0)
-    );
-    curtains.current.needRender();
+    if (!waiting) {
+      // If we're not waiting
+      plane.current.setRelativeTranslation(
+        new Vec3(0, parentRef.current.getBoundingClientRect().y * -0.5, 0)
+      );
+      curtains.current.needRender();
+      waiting = true; // Prevent future invocations
+      setTimeout(function () {
+        // After a period of time
+        waiting = false; // And allow future invocations
+      }, 10);
+    }
   };
 
   return (
     <div ref={ref}>
-      <div id="page-wrap" ref={parentRef}>
+      <div
+        id="page-wrap"
+        className="relative w-screen h-screen overflow-hidden"
+        ref={parentRef}
+      >
         <div id="canvas" ref={canvas}></div>
         <div className="plane" ref={planeElement}>
           <img src={image} data-sampler="planeTexture" alt="2" />
         </div>
       </div>
       <style jsx>{`
-        @media screen {
-          #page-wrap {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-          }
+        #canvas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          z-index: 1;
+        }
 
-          /*** canvas ***/
+        .dg.ac {
+          z-index: 3 !important;
+        }
 
-          #canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            z-index: 1;
-          }
+         {
+          /* .plane {
+          visibility: hidden;
+          position: fixed;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          top: 0;
+          left: 0;
+        }
 
-          .dg.ac {
-            z-index: 3 !important;
-          }
+        .plane img {
+          top: 0;
+          left: 0;
+          display: block;
+          min-width: 100%;
+          min-height: 100%;
+          object-fit: cover;
+          opacity: 0.2;
+        } */
+        }
+        .plane {
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
 
-          #content {
-            position: relative;
-            z-index: 2;
-            width: 97.5vw;
-            margin: 40px auto;
-          }
+        .plane img {
+          display: none;
+        }
 
-          .plane {
-            visibility: hidden;
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
+        /*** handling errors ***/
 
-          .plane img {
-            display: block;
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
-            opacity: 0.2;
-          }
-
-          /*** handling errors ***/
-
-          .no-curtains .plane img {
-            opacity: 1;
-          }
+        .no-curtains .plane img {
+          opacity: 1;
         }
       `}</style>
     </div>
