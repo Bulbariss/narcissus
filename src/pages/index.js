@@ -4,16 +4,16 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
-import Test3 from "../components/Test2";
+// import Test3 from "../components/Test2";
 import CurtainsJS from "../components/Curtains";
 import Text from "../components/Text";
 import { textOne } from "../components/Texts";
 import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
+// import threeL from "../images/collages/3L.jpg";
 import SecondScreen from "../components/page_pieces/SecondScreen";
-import threeL from "../images/collages/3L.jpg";
 import koshka from "../images/koshka_pink.png";
-import fourL from "../images/collages/4L.jpg";
+// import fourL from "../images/collages/4L.jpg";
 import bg from "../images/image.jpg";
 import psychologist from "../images/psychologist.jpg";
 
@@ -46,9 +46,9 @@ function IndexPage() {
       <SEO title="Главная" description="" pathname="/" />
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
-      <CurtainsJS />
       <Video ref={ref} playing={entry.isIntersecting} />
-      <Test3 image={fourL} />
+      <CurtainsJS />
+      {/* <Test3 image={fourL} /> */}
       <TextBlock
         image={bg}
         heading="Мнение Психолога"
@@ -56,7 +56,8 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
-      <Test3 image={threeL} />
+      {/* <Test3 image={threeL} /> */}
+      <CurtainsJS />
       <Text text={textVictimOne} image={bg} />
       <div className="flex flex-col items-center pt-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">

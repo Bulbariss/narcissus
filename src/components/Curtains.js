@@ -10,11 +10,13 @@ const CurtainsJS = () => {
   let plane = useRef();
   let curtains = useRef();
   let parentRef = useRef();
+  let planeElement = useRef();
+  let canvas = useRef();
 
   function init() {
     // set up our WebGL context and append the canvas to our wrapper
     curtains.current = new Curtains({
-      container: "canvas",
+      container: canvas.current,
       watchScroll: false, // no need to listen for the scroll in this example
       pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
     });
@@ -31,7 +33,7 @@ const CurtainsJS = () => {
       });
 
     // get our plane.current element
-    const planeElement = document.getElementsByClassName("plane");
+    // const planeElement = document.getElementsByClassName("plane");
 
     const vs = `
         precision mediump float;
@@ -75,7 +77,7 @@ const CurtainsJS = () => {
     };
 
     // create our plane.current
-    plane.current = new Plane(curtains.current, planeElement[0], params);
+    plane.current = new Plane(curtains.current, planeElement.current, params);
 
     // when our plane.current is ready, add the GUI and update its BBox viewer
     plane.current
@@ -129,15 +131,14 @@ const CurtainsJS = () => {
       new Vec3(0, parentRef.current.getBoundingClientRect().y * -0.5, 0)
     );
     curtains.current.needRender();
-    // updatePlaneBBoxViewer();
   };
 
   return (
     <div ref={ref}>
       <div id="page-wrap" ref={parentRef}>
-        <div id="canvas"></div>
+        <div id="canvas" ref={canvas}></div>
 
-        <div className="plane">
+        <div className="plane" ref={planeElement}>
           <img
             src="http://localhost:8000/static/4L-632bc53e2e728270bc81bfb848fc68da.jpg"
             data-sampler="planeTexture"
