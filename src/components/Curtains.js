@@ -1,30 +1,31 @@
 import { Curtains, Plane, Vec3 } from "curtainsjs";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 const CurtainsJS = () => {
-  useEffect(() => {
+  let plane = useRef();
+  let curtains = useRef();
+  let planeBBoxEl = useRef();
+
+  function init() {
     // set up our WebGL context and append the canvas to our wrapper
-    const curtains = new Curtains({
+    curtains.current = new Curtains({
       container: "canvas",
       watchScroll: false, // no need to listen for the scroll in this example
       pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
     });
 
     // handling errors
-    curtains
-      .onScroll(() => {
-        console.log("object");
-      })
+    curtains.current
       .onError(() => {
         // we will add a class to the document body to display original images
         document.body.classList.add("no-curtains");
       })
       .onContextLost(() => {
         // on context lost, try to restore the context
-        curtains.restoreContext();
+        curtains.current.restoreContext();
       });
 
-    // get our plane element
+    // get our plane.current element
     const planeElement = document.getElementsByClassName("plane");
 
     const vs = `
@@ -64,42 +65,17 @@ const CurtainsJS = () => {
       vertexShader: vs,
       fragmentShader: fs,
       texturesOptions: {
-        anisotropy: 16, // set anisotropy to a max so the texture isn't blurred when the plane's rotated
+        anisotropy: 16, // set anisotropy to a max so the texture isn't blurred when the plane.current's rotated
       },
     };
 
-    // create our plane
-    const plane = new Plane(curtains, planeElement[0], params);
+    // create our plane.current
+    plane.current = new Plane(curtains.current, planeElement[0], params);
 
-    const planeBBoxEl = document.getElementById("plane-bounding-rect");
+    planeBBoxEl.current = document.getElementById("plane-bounding-rect");
 
-    function updatePlaneBBoxViewer() {
-      // wait for next render to update the bounding rect sizes
-      curtains.nextRender(() => {
-        // update of bounding box size and position
-        const planeBBox = plane.getWebGLBoundingRect();
-
-        planeBBoxEl.style.width =
-          planeBBox.width / curtains.pixelRatio +
-          (plane.drawCheckMargins.right + plane.drawCheckMargins.left) +
-          "px";
-        planeBBoxEl.style.height =
-          planeBBox.height / curtains.pixelRatio +
-          (plane.drawCheckMargins.top + plane.drawCheckMargins.bottom) +
-          "px";
-        planeBBoxEl.style.top =
-          planeBBox.top / curtains.pixelRatio -
-          plane.drawCheckMargins.top +
-          "px";
-        planeBBoxEl.style.left =
-          planeBBox.left / curtains.pixelRatio -
-          plane.drawCheckMargins.left +
-          "px";
-      });
-    }
-
-    // when our plane is ready, add the GUI and update its BBox viewer
-    plane
+    // when our plane.current is ready, add the GUI and update its BBox viewer
+    plane.current
       .onReady(() => {
         // add the GUI
 
@@ -110,15 +86,49 @@ const CurtainsJS = () => {
       });
 
     // once everything is ready, stop drawing the scene
-    curtains.disableDrawing();
-    setTimeout(() => {
-      plane.setRelativeTranslation(
-        new Vec3(plane.relativeTranslation.x, -100, plane.relativeTranslation.z)
-      );
-      curtains.needRender();
-      updatePlaneBBoxViewer();
-    }, 2000);
+    curtains.current.disableDrawing();
+  }
+  function updatePlaneBBoxViewer() {
+    // wait for next render to update the bounding rect sizes
+    curtains.current.nextRender(() => {
+      // update of bounding box size and position
+      const planeBBox = plane.current.getWebGLBoundingRect();
+
+      planeBBoxEl.current.style.width =
+        planeBBox.width / curtains.current.pixelRatio +
+        (plane.current.drawCheckMargins.right +
+          plane.current.drawCheckMargins.left) +
+        "px";
+      planeBBoxEl.current.style.height =
+        planeBBox.height / curtains.current.pixelRatio +
+        (plane.current.drawCheckMargins.top +
+          plane.current.drawCheckMargins.bottom) +
+        "px";
+      planeBBoxEl.current.style.top =
+        planeBBox.top / curtains.current.pixelRatio -
+        plane.current.drawCheckMargins.top +
+        "px";
+      planeBBoxEl.current.style.left =
+        planeBBox.left / curtains.current.pixelRatio -
+        plane.current.drawCheckMargins.left +
+        "px";
+    });
+  }
+
+  useEffect(() => {
+    init();
   }, []);
+  setTimeout(() => {
+    plane.current.setRelativeTranslation(
+      new Vec3(
+        plane.current.relativeTranslation.x,
+        -100,
+        plane.current.relativeTranslation.z
+      )
+    );
+    curtains.current.needRender();
+    updatePlaneBBoxViewer();
+  }, 5000);
   return (
     <div>
       <div id="page-wrap">
@@ -136,6 +146,7 @@ const CurtainsJS = () => {
       <style jsx>{`
         @media screen {
           #page-wrap {
+            position: relative;
             width: 100%;
             height: 100vh;
             overflow: hidden;
@@ -144,7 +155,7 @@ const CurtainsJS = () => {
           /*** canvas ***/
 
           #canvas {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             height: 100vh;
@@ -154,7 +165,7 @@ const CurtainsJS = () => {
 
           #back-to-lib-link {
             display: inline-block;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             padding: 0.25em 0.5em;
@@ -171,7 +182,7 @@ const CurtainsJS = () => {
 
           #source-code-link {
             display: inline-block;
-            position: fixed;
+            position: absolute;
             bottom: 1em;
             left: 1em;
             padding: 0.25em 0.5em;
@@ -197,7 +208,8 @@ const CurtainsJS = () => {
           }
 
           .plane {
-            position: fixed;
+            display: none;
+            position: absolute;
             width: 50%;
             height: 50vh;
             top: 25vh;
@@ -217,7 +229,7 @@ const CurtainsJS = () => {
           }
 
           #plane-bounding-rect {
-            position: fixed;
+            position: absolute;
             background: red;
             opacity: 0.2;
             pointer-events: none;
