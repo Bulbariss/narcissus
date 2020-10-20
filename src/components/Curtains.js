@@ -1,5 +1,5 @@
-import { Curtains, Plane, Vec3 } from "curtainsjs";
 import React, { useEffect, useRef } from "react";
+import { Curtains, Plane, Vec3 } from "curtainsjs";
 import useIntersect from "./utils/useIntersect";
 
 const CurtainsJS = () => {
@@ -69,9 +69,9 @@ const CurtainsJS = () => {
     const params = {
       vertexShader: vs,
       fragmentShader: fs,
-      texturesOptions: {
-        anisotropy: 16, // set anisotropy to a max so the texture isn't blurred when the plane.current's rotated
-      },
+      //   texturesOptions: {
+      //     anisotropy: 16, // set anisotropy to a max so the texture isn't blurred when the plane.current's rotated
+      //   },
     };
 
     // create our plane.current
@@ -126,11 +126,7 @@ const CurtainsJS = () => {
 
   const onScroll = () => {
     plane.current.setRelativeTranslation(
-      new Vec3(
-        plane.current.relativeTranslation.x,
-        parentRef.current.getBoundingClientRect().y * -1,
-        plane.current.relativeTranslation.z
-      )
+      new Vec3(0, parentRef.current.getBoundingClientRect().y * -0.5, 0)
     );
     curtains.current.needRender();
     // updatePlaneBBoxViewer();
@@ -169,39 +165,6 @@ const CurtainsJS = () => {
             z-index: 1;
           }
 
-          #back-to-lib-link {
-            display: inline-block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 0.25em 0.5em;
-            background: #ee6557;
-            color: white;
-            text-decoration: none;
-            z-index: 20;
-            font-size: 0.85em;
-          }
-
-          #back-to-lib-link:hover {
-            background: black;
-          }
-
-          #source-code-link {
-            display: inline-block;
-            position: absolute;
-            bottom: 1em;
-            left: 1em;
-            padding: 0.25em 0.5em;
-            background: #ee6557;
-            color: white;
-            text-decoration: none;
-            z-index: 50;
-          }
-
-          #source-code-link:hover {
-            background: black;
-          }
-
           .dg.ac {
             z-index: 3 !important;
           }
@@ -214,12 +177,10 @@ const CurtainsJS = () => {
           }
 
           .plane {
-            display: none;
+            visibility: hidden;
             position: absolute;
-            width: 50%;
-            height: 50vh;
-            top: 25vh;
-            left: 25%;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
             display: flex;
             align-items: center;
