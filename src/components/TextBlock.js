@@ -1,10 +1,15 @@
 import React from "react";
+import BackgroundImage from "gatsby-background-image";
 
 const TextBlock = ({ heading, name, text, img, image }) => {
   return (
-    <section
+    <BackgroundImage
       className="relative bg-cover"
-      style={{ backgroundImage: `url(${image})` }}
+      Tag="section"
+      alt="Обложка"
+      fluid={image}
+      fadeIn="soft"
+      durationFadeIn={300}
     >
       <div className="px-4 py-16 mx-auto md:px-0 max-w-text">
         <p className="pb-6 H1 bbb">{heading}</p>
@@ -36,7 +41,7 @@ const TextBlock = ({ heading, name, text, img, image }) => {
           {text}
         </p>
       </div>
-    </section>
+    </BackgroundImage>
   );
 };
 
