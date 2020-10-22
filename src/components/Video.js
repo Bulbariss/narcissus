@@ -28,10 +28,14 @@ const Video = forwardRef(({ playing }, ref) => {
       />
       {!play && (
         <div
-          className="absolute top-0 z-20 w-full h-full bg-cover"
+          className="absolute top-0 z-20 w-full h-full bg-cover video-cover"
           style={{ backgroundImage: `url(${Cover})` }}
         >
-          <button className="absolute center-xy" onClick={() => setPlay(true)}>
+          <button
+            className="absolute center-xy"
+            aria-label="Включить видео"
+            onClick={() => setPlay(true)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

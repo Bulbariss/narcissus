@@ -49,9 +49,10 @@ html {
   text-rendering: optimizeLegibility;
 }
 
-video {
+video,
+.video-cover {
   margin: auto;
-  height: auto;
+  height: 75vw !important;
 }
 
 /* input {
@@ -99,7 +100,8 @@ textarea::-webkit-input-placeholder {
   font-family: "bbb";
   font-style: normal;
   font-display: swap;
-  src: url("../fonts/bbb.ttf") format("truetype");
+  src: url("../fonts/bbb.woff2") format("woff2"),
+    url("../fonts/bbb.ttf") format("truetype");
 }
 
 /* @font-face {
@@ -295,8 +297,17 @@ textarea::-webkit-input-placeholder {
   }
 }
 
+@media (orientation: landscape) {
+  @media (min-height: 500px) {
+    .hero-main {
+      margin-top: -3.9375rem;
+    }
+  }
+}
+
 @media (min-aspect-ratio: 4/3) {
-  video {
+  video,
+  .video-cover {
     height: 100vh !important;
   }
 }

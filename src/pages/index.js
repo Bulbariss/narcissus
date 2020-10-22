@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import IntersectBox from "../components/IntersectBox";
+import Footer from "../components/Footer";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
-// import Test3 from "../components/Test2";
 import CurtainsJS from "../components/Curtains";
 import Text from "../components/Text";
 import { textOne, textTwo, textThree, textFour } from "../components/Texts";
@@ -46,7 +45,6 @@ function IndexPage() {
       <SecondScreen />
       <Video ref={ref} playing={entry.isIntersecting} />
       <CurtainsJS image={fourL} />
-      {/* <Test3 image={fourL} /> */}
       <TextBlock
         image={bg}
         heading="Мнение Психолога"
@@ -54,21 +52,26 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
-      {/* <Test3 image={threeL} /> */}
       <CurtainsJS image={threeL} />
       <Text text={textTwo} image={bg} />
       <CurtainsJS image={threeL} />
       <Text text={textThree} image={bg} />
       <CurtainsJS image={threeL} />
       <Text text={textFour} image={bg} />
-      <div className="flex flex-col items-center pt-20">
+      <div className="flex flex-col items-center py-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
           Напишите Нам
         </a>
         <a href="https://koshkaneon.com" rel="noreferrer" target="_blank">
-          <img src={koshka} alt="koshka" className="w-1/4 py-12 mx-auto" />
+          <img
+            src={koshka}
+            alt="Koshka Neon Logo"
+            className="w-1/4 h-auto py-12 mx-auto"
+            loading="lazy"
+          />
         </a>
       </div>
+      <Footer />
     </Layout>
   );
 }

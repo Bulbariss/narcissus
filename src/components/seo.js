@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Helmet from "react-helmet";
 import image from "../images/social_cover.jpg";
+import FontUrl from "../fonts/bbb.woff2";
 
 function SEO({ description, lang, meta, keywords, title, pathname }) {
   const { site } = useStaticQuery(graphql`
@@ -107,7 +108,9 @@ function SEO({ description, lang, meta, keywords, title, pathname }) {
         .concat(meta)}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
-    />
+    >
+      <link rel="preload" href={FontUrl} as="font" crossOrigin="anonymous" />
+    </Helmet>
   );
 }
 

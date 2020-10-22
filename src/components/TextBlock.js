@@ -10,11 +10,11 @@ const TextBlock = ({ heading, name, text, img, image }) => {
         <p className="pb-6 H1 bbb">{heading}</p>
         <div className="flex flex-row items-center justify-between pb-8">
           <div className="flex items-center">
-            <img src={img} alt="" className="w-12 rounded-full" />
-            <p className="pl-4 text-xl font-medium text-gray-500">{name}</p>
+            <img src={img} alt="" className="w-12 h-12 rounded-full" />
+            <p className="pl-4 text-xl font-bold text-gray-400">{name}</p>
           </div>
           <div className="flex items-center">
-            <a href="/" rel="noreferrer" target="_blank">
+            <a href="/" rel="noreferrer" target="_blank" aria-label="Фейсбук">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

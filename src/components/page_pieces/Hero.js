@@ -25,25 +25,23 @@ const Hero = ({ isLandscape }) => {
   return (
     <>
       <BackgroundImage
-        className="flex items-center justify-center min-h-screen"
+        className="flex flex-col items-center justify-between min-h-screen"
         loading="eager"
         Tag="section"
         alt="Обложка"
         fluid={isLandscape ? images.Test.sharp.fluid : images.Test2.sharp.fluid}
         fadeIn="soft"
+        durationFadeIn={300}
       >
         <div
-          className="absolute w-screen h-screen bg-black"
+          className="absolute w-screen h-full min-h-screen bg-black"
           style={{ opacity: "0.4" }}
         />
         <div
-          className="absolute bottom-0 w-screen h-auto pt-16"
-          style={{ background: "linear-gradient( transparent, #212121)" }}
-        />
-        <div
-          className="absolute top-0 w-screen h-auto pb-16"
+          className="absolute top-0 w-screen h-48"
           style={{ background: "linear-gradient(#000, transparent)" }}
-        >
+        ></div>
+        <div className="top-0 z-10 w-screen h-auto">
           <p className="py-6 text-4xl text-center bbb">СМИ О ПРОЕКТЕ</p>
           <div
             className="flex justify-around max-w-80"
@@ -79,18 +77,21 @@ const Hero = ({ isLandscape }) => {
             </a>
           </div>
         </div>
-        <div className="z-10 flex flex-col max-w-2xl px-4 text-white md:px-0">
+        <div className="z-10 flex flex-col max-w-2xl px-4 text-white md:px-0 hero-main">
           <img
             src={Name}
             alt="narcissus"
-            style={{ filter: "invert(1)" }}
-            className="select-none"
+            className="w-full h-auto select-none"
           />
           <p className="text-xl text-white P font-base md:text-center">
             Арт-проект, в котором Koshka Neon вместе с певицей Сабриной и
             певицей Mirele поднимают проблему абьюзивных отношений.
           </p>
         </div>
+        <div
+          className="bottom-0 w-screen h-auto pt-16 "
+          style={{ background: "linear-gradient( transparent, #212121)" }}
+        />
       </BackgroundImage>
     </>
   );

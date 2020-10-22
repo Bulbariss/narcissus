@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import useIntersect from "./utils/useIntersect";
 import { Curtains, Plane, Vec3 } from "curtainsjs";
+import useIntersect from "./utils/useIntersect";
 
 const CurtainsJS = ({ image }) => {
   const [ref, entry] = useIntersect({
@@ -151,7 +151,7 @@ const CurtainsJS = ({ image }) => {
       >
         <div id="canvas" ref={canvas}></div>
         <div className="plane" ref={planeElement}>
-          <img src={image} data-sampler="planeTexture" alt="2" />
+          <img src={image} data-sampler="planeTexture" alt="Коллаж" />
         </div>
       </div>
       <style jsx>{`
