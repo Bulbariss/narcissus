@@ -6,7 +6,7 @@ const TextBlock = ({ heading, name, text, img, image }) => {
       className="relative bg-cover"
       style={{ backgroundImage: `url(${image})` }}
     >
-      <div className="px-4 py-20 mx-auto md:px-0 max-w-text">
+      <div className="px-4 py-16 mx-auto md:px-0 max-w-text">
         <p className="pb-6 H1 bbb">{heading}</p>
         <div className="flex flex-row items-center justify-between pb-8">
           <div className="flex items-center">

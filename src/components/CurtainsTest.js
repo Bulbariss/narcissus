@@ -1,8 +1,20 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import useIntersect from "./utils/useIntersect";
 import { Curtains, Plane, Vec3 } from "curtainsjs";
+import { graphql, useStaticQuery } from "gatsby";
 
-const CurtainsJS = ({ image }) => {
+const CurtainsJS = memo(() => {
+  const { image } = useStaticQuery(graphql`
+    query {
+      image: file(relativePath: { eq: "collages/4L.jpg" }) {
+        sharp: childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `);
   const [ref, entry] = useIntersect({
     threshold: 0,
   });
@@ -14,6 +26,7 @@ const CurtainsJS = ({ image }) => {
   let planeElement = useRef();
   let canvas = useRef();
 
+  console.log(canvas.current);
   function init() {
     // set up our WebGL context and append the canvas to our wrapper
     curtains.current = new Curtains({
@@ -151,7 +164,13 @@ const CurtainsJS = ({ image }) => {
       >
         <div id="canvas" ref={canvas}></div>
         <div className="plane" ref={planeElement}>
-          <img src={image} data-sampler="planeTexture" alt="2" />
+          <img
+            sizes={image.sharp.fluid.sizes}
+            srcSet={image.sharp.fluid.srcSet}
+            src={image.sharp.fluid.src}
+            data-sampler="planeTexture"
+            alt="2"
+          />
         </div>
       </div>
       <style jsx>{`
@@ -214,6 +233,6 @@ const CurtainsJS = ({ image }) => {
       `}</style>
     </div>
   );
-};
-
+});
+CurtainsJS.displayName = "CurtainsJS";
 export default CurtainsJS;
