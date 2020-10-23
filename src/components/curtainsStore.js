@@ -5,6 +5,10 @@ const initialState = {
   curtains: new Curtains({
     pixelRatio: Math.min(1.5, window.devicePixelRatio),
     production: process.env.NODE_ENV !== "development",
+    watchScroll: false,
+    antialias: false,
+    depth: false,
+    autoResize: true,
   }),
   isActive: true,
   container: null,

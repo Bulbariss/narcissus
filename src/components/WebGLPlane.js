@@ -71,7 +71,15 @@ const WebGLPlane = ({ image }) => {
       //   plane.onRender(() => {
       //     plane.uniforms.time.value++;
       //   });
-
+      plane.current
+        .onReady(() => {
+          curtains.current.resize();
+          plane.current.updateScrollPosition(0, window.pageYOffset);
+        })
+        .onAfterResize(() => {
+          onScroll();
+        });
+      curtains.current.disableDrawing();
       // remove plane if we're unmounting the component
       return () => {
         plane.current.remove();
@@ -105,7 +113,9 @@ const WebGLPlane = ({ image }) => {
       plane.current.uniforms.offset.value =
         (planeEl.current.getBoundingClientRect().y / window.innerHeight) * -0.5;
 
-      //   curtains.current.needRender();
+      curtains.current.updateScrollValues(0, window.pageYOffset);
+      curtains.current.needRender();
+      //   curtains.current.updateScrollValues();
       waiting = true;
       setTimeout(function () {
         waiting = false;

@@ -1,8 +1,7 @@
-import React, { useContext, useRef, useLayoutEffect } from "react";
+import React, { useContext, useRef, useLayoutEffect, memo } from "react";
 import { CurtainsContext } from "./curtainsStore";
 
-
-const WebGLCanvas = () => {
+const WebGLCanvas = memo(() => {
   // init our curtains instance
   const { state, dispatch } = useContext(CurtainsContext);
   const container = useRef();
@@ -15,6 +14,10 @@ const WebGLCanvas = () => {
       curtains.setContainer(container.current);
 
       curtains
+        .onRender(() => {
+          curtains.updateScrollValues(0, window.pageYOffset);
+          curtains.needRender();
+        })
         .onError(() => {
           dispatch({
             type: "SET_CURTAINS_ERROR",
@@ -22,6 +25,10 @@ const WebGLCanvas = () => {
         })
         .onContextLost(() => {
           curtains.restoreContext();
+        })
+        .onAfterResize(() => {
+          curtains.updateScrollValues(0, window.pageYOffset);
+          curtains.needRender();
         });
 
       dispatch({
@@ -42,6 +49,8 @@ const WebGLCanvas = () => {
       ref={container}
     />
   );
-};
+});
+
+WebGLCanvas.displayName = "WebGLCanvas";
 
 export default WebGLCanvas;

@@ -2,9 +2,8 @@ import React from "react";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import { Link } from "gatsby";
 import parallaxOne from "../images/parallax/ParallaxOne.jpg";
-// import Cur from "../components/Cur";
+import { Link } from "gatsby";
 
 import WebGLPlane from "../components/WebGLPlane";
 
@@ -26,9 +25,12 @@ function NotFoundPage() {
           </Link>
         </div>
       </section>
-      {/* <Cur image={parallaxOne} /> */}
+      <WebGLPlane image={parallaxOne} />
       <div className="w-screen h-screen"></div>
       <WebGLPlane image={parallaxOne} />
+      <div className="w-screen h-screen"></div>
+      <WebGLPlane image={parallaxOne} />
+      <div className="w-screen h-screen"></div>
     </Layout>
   );
 }
