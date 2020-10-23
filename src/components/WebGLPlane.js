@@ -46,7 +46,7 @@ const WebGLPlane = ({ image }) => {
   });
   const { state } = useContext(CurtainsContext);
   const planeEl = useRef();
-  // var waiting = false;
+  var waiting = false;
   let plane = useRef();
   let curtains = useRef();
   useLayoutEffect(() => {
@@ -110,23 +110,23 @@ const WebGLPlane = ({ image }) => {
   }, [entry]);
 
   const onScroll = () => {
-    // if (!waiting) {
-    plane.current.uniforms.offset.value =
-      (planeEl.current.getBoundingClientRect().y /
-        (typeof window !== `undefined` && window.innerHeight)) *
-      -0.5;
+    if (!waiting) {
+      plane.current.uniforms.offset.value =
+        (planeEl.current.getBoundingClientRect().y /
+          planeEl.current.getBoundingClientRect().height) *
+        -0.5;
 
-    curtains.current.updateScrollValues(
-      0,
-      typeof window !== `undefined` && window.pageYOffset
-    );
-    plane.current.updateScrollPosition();
-    // curtains.current.needRender();
-    // waiting = true;
-    // setTimeout(function () {
-    //   waiting = false;
-    // }, 10);
-    // }
+      curtains.current.updateScrollValues(
+        0,
+        typeof window !== `undefined` && window.pageYOffset
+      );
+      plane.current.updateScrollPosition();
+      // curtains.current.needRender();
+      waiting = true;
+      setTimeout(function () {
+        waiting = false;
+      }, 10);
+    }
   };
 
   return (
