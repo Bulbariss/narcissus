@@ -110,23 +110,21 @@ const WebGLPlane = ({ image }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry]);
-  const percentageSeen = () => {
-    const distance =
-      (typeof window !== `undefined` && window.scrollY) +
-      (typeof window !== `undefined` && iosInnerHeight() * 2) -
-      planeEl.current.offsetTop;
-    let b =
-      distance / (typeof window !== `undefined` && iosInnerHeight() * 2) - 1;
-    return Math.min(0.5, Math.max(-0.5, b));
-  };
+  // const percentageSeen = () => {
+  //   const distance =
+  //     (typeof window !== `undefined` && window.scrollY) +
+  //     (typeof window !== `undefined` && iosInnerHeight() * 2) -
+  //     planeEl.current.offsetTop;
+  //   let b =
+  //     distance / (typeof window !== `undefined` && iosInnerHeight() * 2) - 1;
+  //   return Math.min(0.5, Math.max(-0.5, b));
+  // };
 
   const onScroll = () => {
     if (!waiting) {
-      plane.current.uniforms.offset.value = percentageSeen();
-      //() plane.current.uniforms.offset.value =
-      //   (planeEl.current.getBoundingClientRect().y /
-      //     planeEl.current.getBoundingClientRect().height) *
-      //   -0.5;
+      // plane.current.uniforms.offset.value = percentageSeen();
+      plane.current.uniforms.offset.value =
+        (planeEl.current.getBoundingClientRect().y / iosInnerHeight()) * -0.5;
 
       curtains.current.updateScrollValues(
         0,
