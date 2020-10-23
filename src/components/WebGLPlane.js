@@ -1,8 +1,14 @@
-import React, { useContext, useRef, useLayoutEffect, useEffect } from "react";
+import React, {
+  useContext,
+  useRef,
+  useLayoutEffect,
+  useEffect,
+  memo,
+} from "react";
 import { Plane } from "curtainsjs";
 import { CurtainsContext } from "./curtainsStore";
-import useIntersect from "./utils/useIntersect";
 import iosInnerHeight from "ios-inner-height";
+import useIntersect from "./utils/useIntersect";
 
 // vertex and fragment shaders
 const vs = `
@@ -41,7 +47,7 @@ const fs = `
         
     `;
 
-const WebGLPlane = ({ image }) => {
+const WebGLPlane = memo(({ image }) => {
   const [ref, entry] = useIntersect({
     threshold: 0,
   });
@@ -50,6 +56,7 @@ const WebGLPlane = ({ image }) => {
   var waiting = false;
   let plane = useRef();
   let curtains = useRef();
+
   useLayoutEffect(() => {
     curtains.current = state.curtains;
 
@@ -79,6 +86,7 @@ const WebGLPlane = ({ image }) => {
         })
         .onAfterResize(() => {
           planeEl.current.style.height = iosInnerHeight() + "px";
+          planeEl.current.parentNode.style.height = iosInnerHeight() + "px";
           onScroll();
         });
       curtains.current.disableDrawing();
@@ -110,28 +118,16 @@ const WebGLPlane = ({ image }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry]);
-  // const percentageSeen = () => {
-  //   const distance =
-  //     (typeof window !== `undefined` && window.scrollY) +
-  //     (typeof window !== `undefined` && iosInnerHeight() * 2) -
-  //     planeEl.current.offsetTop;
-  //   let b =
-  //     distance / (typeof window !== `undefined` && iosInnerHeight() * 2) - 1;
-  //   return Math.min(0.5, Math.max(-0.5, b));
-  // };
 
   const onScroll = () => {
     if (!waiting) {
-      // plane.current.uniforms.offset.value = percentageSeen();
       plane.current.uniforms.offset.value =
         (planeEl.current.getBoundingClientRect().y / iosInnerHeight()) * -0.5;
-
       curtains.current.updateScrollValues(
         0,
         typeof window !== `undefined` && window.pageYOffset
       );
       plane.current.updateScrollPosition();
-      // curtains.current.needRender();
       waiting = true;
       setTimeout(function () {
         waiting = false;
@@ -140,11 +136,15 @@ const WebGLPlane = ({ image }) => {
   };
 
   return (
-    <div ref={ref} className="w-screen h-full">
+    <div
+      ref={ref}
+      className="w-screen"
+      style={{ height: iosInnerHeight() + "px", zIndex: "-1" }}
+    >
       <div
         className="top-0 left-0 w-screen WebGLPlane"
         ref={planeEl}
-        style={{ height: iosInnerHeight() + "px", zIndex: "-1" }}
+        style={{ height: iosInnerHeight() + "px" }}
       >
         <img
           src={image}
@@ -155,6 +155,8 @@ const WebGLPlane = ({ image }) => {
       </div>
     </div>
   );
-};
+});
+
+WebGLPlane.displayName = "WebGLPlane";
 
 export default WebGLPlane;

@@ -36,7 +36,8 @@ const WebGLCanvas = memo(() => {
             0,
             typeof window !== `undefined` && window.pageYOffset
           );
-          curtains.needRender();
+          // Might be performance killer
+          curtains.resize();
         });
 
       dispatch({
