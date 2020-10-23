@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useLayoutEffect, useEffect } from "react";
 import { Plane } from "curtainsjs";
-import useIntersect from "./utils/useIntersect";
 import { CurtainsContext } from "./curtainsStore";
+import useIntersect from "./utils/useIntersect";
 
 // vertex and fragment shaders
 const vs = `
@@ -112,10 +112,10 @@ const WebGLPlane = ({ image }) => {
   const percentageSeen = () => {
     const distance =
       (typeof window !== `undefined` && window.scrollY) +
-      (typeof window !== `undefined` && window.innerHeight) -
+      (typeof window !== `undefined` && window.innerHeight * 2) -
       planeEl.current.offsetTop;
     let b =
-      distance / (typeof window !== `undefined` && window.innerHeight) - 0.5;
+      distance / (typeof window !== `undefined` && window.innerHeight * 2) - 1;
     return Math.min(0.5, Math.max(-0.5, b));
   };
 
