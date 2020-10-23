@@ -109,12 +109,23 @@ const WebGLPlane = ({ image }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry]);
 
+  const percentageSeen = () => {
+    const distance =
+      (typeof window !== `undefined` && window.scrollY) +
+      (typeof window !== `undefined` && window.innerHeight) -
+      planeEl.current.offsetTop;
+    let b =
+      distance / (typeof window !== `undefined` && window.innerHeight) - 0.5;
+    return Math.min(0.5, Math.max(-0.5, b));
+  };
+
   const onScroll = () => {
     if (!waiting) {
-      plane.current.uniforms.offset.value =
-        (planeEl.current.getBoundingClientRect().y /
-          planeEl.current.getBoundingClientRect().height) *
-        -0.5;
+      plane.current.uniforms.offset.value = percentageSeen();
+      //() plane.current.uniforms.offset.value =
+      //   (planeEl.current.getBoundingClientRect().y /
+      //     planeEl.current.getBoundingClientRect().height) *
+      //   -0.5;
 
       curtains.current.updateScrollValues(
         0,
@@ -130,11 +141,8 @@ const WebGLPlane = ({ image }) => {
   };
 
   return (
-    <div ref={ref} className="relative w-screen h-screen">
-      <div
-        className="absolute top-0 left-0 w-screen h-screen WebGLPlane"
-        ref={planeEl}
-      >
+    <div ref={ref} className="w-screen h-screen ">
+      <div className="top-0 left-0 w-screen h-screen WebGLPlane" ref={planeEl}>
         <img
           src={image}
           alt="Обложка"
