@@ -6,7 +6,6 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
-import CurtainsJS from "../components/Curtains";
 import Text from "../components/Text";
 import TextLast from "../components/TextLast";
 import { textOne, textTwo, textThree, textFour } from "../components/Texts";
@@ -14,6 +13,9 @@ import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
 import { graphql, useStaticQuery } from "gatsby";
+import { CurtainsProvider } from "../components/curtainsStore";
+import WebGLCanvas from "../components/WebGLCanvas";
+import WebGLPlane from "../components/WebGLPlane";
 
 // Images
 import parallaxOne from "../images/parallax/ParallaxOne.jpg";
@@ -73,30 +75,31 @@ function IndexPage() {
   }, []);
 
   return (
-    <Layout>
-      <SEO title="Главная" description="" pathname="/" />
-      <Hero isLandscape={isLandscape} />
-      <SecondScreen />
-      <Video
-        ref={ref}
-        playing={entry.isIntersecting}
-        image={images.bgOne.sharp.fluid}
-      />
-      <CurtainsJS image={parallaxOne} />
-      <TextBlock
-        image={images.bgOne.sharp.fluid}
-        heading="Мнение Психолога"
-        text={textOne}
-        name="Ирина Лернер"
-        img={psychologist}
-      />
-      <CurtainsJS image={parallaxTwo} />
-      <Text text={textTwo} image={images.bgTwo.sharp.fluid} />
-      <CurtainsJS image={parallaxThree} />
-      <Text text={textThree} image={images.bgThree.sharp.fluid} />
-      <CurtainsJS image={parallaxFour} />
-      <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
-      {/* <div className="flex flex-col items-center py-20">
+    <CurtainsProvider>
+      <Layout>
+        <SEO title="Главная" description="" pathname="/" />
+        <Hero isLandscape={isLandscape} />
+        <SecondScreen />
+        <Video
+          ref={ref}
+          playing={entry.isIntersecting}
+          image={images.bgOne.sharp.fluid}
+        />
+        <WebGLPlane image={parallaxOne} />
+        <TextBlock
+          image={images.bgOne.sharp.fluid}
+          heading="Мнение Психолога"
+          text={textOne}
+          name="Ирина Лернер"
+          img={psychologist}
+        />
+        <WebGLPlane image={parallaxTwo} />
+        <Text text={textTwo} image={images.bgTwo.sharp.fluid} />
+        <WebGLPlane image={parallaxThree} />
+        <Text text={textThree} image={images.bgThree.sharp.fluid} />
+        <WebGLPlane image={parallaxFour} />
+        <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
+        {/* <div className="flex flex-col items-center py-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
           Напишите Нам
         </a>
@@ -110,7 +113,9 @@ function IndexPage() {
         </a>
       </div>
       <Footer /> */}
-    </Layout>
+        <WebGLCanvas />
+      </Layout>
+    </CurtainsProvider>
   );
 }
 

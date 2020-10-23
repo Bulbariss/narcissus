@@ -4,7 +4,7 @@ import { Curtains } from "curtainsjs";
 const initialState = {
   curtains: new Curtains({
     pixelRatio: Math.min(1.5, window.devicePixelRatio),
-    production: process.env.NODE_ENV !== "development",
+    production: true,
     watchScroll: false,
     antialias: false,
     depth: false,

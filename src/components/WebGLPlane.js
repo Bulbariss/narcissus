@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useLayoutEffect, useEffect } from "react";
 import { Plane } from "curtainsjs";
-import { CurtainsContext } from "./curtainsStore";
 import useIntersect from "./utils/useIntersect";
+import { CurtainsContext } from "./curtainsStore";
 
 // vertex and fragment shaders
 const vs = `
@@ -46,7 +46,7 @@ const WebGLPlane = ({ image }) => {
   });
   const { state } = useContext(CurtainsContext);
   const planeEl = useRef();
-  var waiting = false; // Initially, we're not waiting
+  // var waiting = false;
   let plane = useRef();
   let curtains = useRef();
   useLayoutEffect(() => {
@@ -56,7 +56,10 @@ const WebGLPlane = ({ image }) => {
     if (state.container) {
       const planeParams = {
         vertexShader: vs,
+        production: true,
         fragmentShader: fs,
+        shareProgram: true,
+        // watchScroll: false,
         uniforms: {
           offset: {
             name: "uOffset",
@@ -68,13 +71,10 @@ const WebGLPlane = ({ image }) => {
 
       plane.current = new Plane(curtains.current, planeEl.current, planeParams);
 
-      //   plane.onRender(() => {
-      //     plane.uniforms.time.value++;
-      //   });
       plane.current
         .onReady(() => {
           curtains.current.resize();
-          plane.current.updateScrollPosition(0, window.pageYOffset);
+          onScroll();
         })
         .onAfterResize(() => {
           onScroll();
@@ -85,6 +85,7 @@ const WebGLPlane = ({ image }) => {
         plane.current.remove();
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.container, state.curtains]);
 
   useEffect(() => {
@@ -109,18 +110,18 @@ const WebGLPlane = ({ image }) => {
   }, [entry]);
 
   const onScroll = () => {
-    if (!waiting) {
-      plane.current.uniforms.offset.value =
-        (planeEl.current.getBoundingClientRect().y / window.innerHeight) * -0.5;
+    // if (!waiting) {
+    plane.current.uniforms.offset.value =
+      (planeEl.current.getBoundingClientRect().y / window.innerHeight) * -0.5;
 
-      curtains.current.updateScrollValues(0, window.pageYOffset);
-      curtains.current.needRender();
-      //   curtains.current.updateScrollValues();
-      waiting = true;
-      setTimeout(function () {
-        waiting = false;
-      }, 10);
-    }
+    curtains.current.updateScrollValues(0, window.pageYOffset);
+    plane.current.updateScrollPosition();
+    curtains.current.needRender();
+    // waiting = true;
+    // setTimeout(function () {
+    //   waiting = false;
+    // }, 10);
+    // }
   };
 
   return (
