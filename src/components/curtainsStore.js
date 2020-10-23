@@ -3,7 +3,10 @@ import { Curtains } from "curtainsjs";
 
 const initialState = {
   curtains: new Curtains({
-    pixelRatio: Math.min(1.5, window.devicePixelRatio),
+    pixelRatio: Math.min(
+      1.5,
+      typeof window !== `undefined` && window.devicePixelRatio
+    ),
     production: true,
     watchScroll: false,
     antialias: false,

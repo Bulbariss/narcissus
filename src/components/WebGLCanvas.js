@@ -15,7 +15,10 @@ const WebGLCanvas = memo(() => {
 
       curtains
         .onRender(() => {
-          curtains.updateScrollValues(0, window.pageYOffset);
+          curtains.updateScrollValues(
+            0,
+            typeof window !== `undefined` && window.pageYOffset
+          );
           curtains.needRender();
         })
         .onError(() => {
@@ -27,7 +30,10 @@ const WebGLCanvas = memo(() => {
           curtains.restoreContext();
         })
         .onAfterResize(() => {
-          curtains.updateScrollValues(0, window.pageYOffset);
+          curtains.updateScrollValues(
+            0,
+            typeof window !== `undefined` && window.pageYOffset
+          );
           curtains.needRender();
         });
 

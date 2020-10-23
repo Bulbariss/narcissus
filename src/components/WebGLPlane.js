@@ -116,7 +116,10 @@ const WebGLPlane = ({ image }) => {
         (typeof window !== `undefined` && window.innerHeight)) *
       -0.5;
 
-    curtains.current.updateScrollValues(0, window.pageYOffset);
+    curtains.current.updateScrollValues(
+      0,
+      typeof window !== `undefined` && window.pageYOffset
+    );
     plane.current.updateScrollPosition();
     // curtains.current.needRender();
     // waiting = true;
