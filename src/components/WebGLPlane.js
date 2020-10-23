@@ -112,10 +112,10 @@ const WebGLPlane = ({ image }) => {
   const percentageSeen = () => {
     const distance =
       (typeof window !== `undefined` && window.scrollY) +
-      (typeof window !== `undefined` && window.innerHeight * 2) -
+      (typeof window !== `undefined` && screen.availHeight * 2) -
       planeEl.current.offsetTop;
     let b =
-      distance / (typeof window !== `undefined` && window.innerHeight * 2) - 1;
+      distance / (typeof window !== `undefined` && screen.availHeight * 2) - 1;
     return Math.min(0.5, Math.max(-0.5, b));
   };
 
