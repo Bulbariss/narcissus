@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useLayoutEffect, memo } from "react";
+import iosInnerHeight from "ios-inner-height";
 import { CurtainsContext } from "./curtainsStore";
 
 const WebGLCanvas = memo(() => {
@@ -30,6 +31,7 @@ const WebGLCanvas = memo(() => {
           curtains.restoreContext();
         })
         .onAfterResize(() => {
+          container.current.style.height = iosInnerHeight() + "px";
           curtains.updateScrollValues(
             0,
             typeof window !== `undefined` && window.pageYOffset
@@ -52,6 +54,7 @@ const WebGLCanvas = memo(() => {
   return (
     <div
       className="fixed top-0 left-0 w-screen h-screen pointer-events-none WebGLCanvas"
+      style={{ height: iosInnerHeight() + "px" }}
       ref={container}
     />
   );

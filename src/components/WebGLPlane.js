@@ -2,6 +2,7 @@ import React, { useContext, useRef, useLayoutEffect, useEffect } from "react";
 import { Plane } from "curtainsjs";
 import { CurtainsContext } from "./curtainsStore";
 import useIntersect from "./utils/useIntersect";
+import iosInnerHeight from "ios-inner-height";
 
 // vertex and fragment shaders
 const vs = `
@@ -77,6 +78,7 @@ const WebGLPlane = ({ image }) => {
           onScroll();
         })
         .onAfterResize(() => {
+          planeEl.current.style.height = iosInnerHeight() + "px";
           onScroll();
         });
       curtains.current.disableDrawing();
@@ -108,14 +110,13 @@ const WebGLPlane = ({ image }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry]);
-
   const percentageSeen = () => {
     const distance =
       (typeof window !== `undefined` && window.scrollY) +
-      (typeof window !== `undefined` && screen.availHeight * 2) -
+      (typeof window !== `undefined` && iosInnerHeight() * 2) -
       planeEl.current.offsetTop;
     let b =
-      distance / (typeof window !== `undefined` && screen.availHeight * 2) - 1;
+      distance / (typeof window !== `undefined` && iosInnerHeight() * 2) - 1;
     return Math.min(0.5, Math.max(-0.5, b));
   };
 
@@ -142,7 +143,11 @@ const WebGLPlane = ({ image }) => {
 
   return (
     <div ref={ref} className="w-screen h-screen ">
-      <div className="top-0 left-0 w-screen h-screen WebGLPlane" ref={planeEl}>
+      <div
+        className="top-0 left-0 w-screen h-screen WebGLPlane"
+        ref={planeEl}
+        style={{ height: iosInnerHeight() + "px" }}
+      >
         <img
           src={image}
           alt="Обложка"

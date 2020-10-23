@@ -18,6 +18,7 @@
     "gatsby-plugin-styled-jsx": "^3.3.14",
     "gatsby-source-filesystem": "^2.3.34",
     "gatsby-transformer-sharp": "^2.5.17",
+    "ios-inner-height": "^1.1.1",
     "postcss": "^7.0.32",
     "prop-types": "15.7.2",
     "react": "16.13.1",
