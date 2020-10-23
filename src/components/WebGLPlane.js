@@ -130,13 +130,16 @@ const WebGLPlane = ({ image }) => {
   };
 
   return (
-    <div ref={ref}>
-      <div className="w-screen h-screen WebGLPlane" ref={planeEl}>
+    <div ref={ref} className="relative w-screen h-screen">
+      <div
+        className="absolute top-0 left-0 w-screen h-screen WebGLPlane"
+        ref={planeEl}
+      >
         <img
           src={image}
           alt="Обложка"
           data-sampler="planeTexture"
-          className="hidden"
+          className="hidden object-cover"
         />
       </div>
     </div>
