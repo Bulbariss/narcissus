@@ -19,7 +19,12 @@ const TextBlock = ({ heading, name, text, img, image }) => {
             <p className="pl-4 text-xl font-bold text-gray-400">{name}</p>
           </div>
           <div className="flex items-center">
-            <a href="/" rel="noreferrer" target="_blank" aria-label="Фейсбук">
+            <a
+              href="https://www.facebook.com/medvedzeva"
+              rel="noreferrer"
+              target="_blank"
+              aria-label="Фейсбук"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

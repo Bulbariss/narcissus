@@ -38,6 +38,7 @@ function IndexPage() {
       }
     }
   `);
+
   const [isLandscape, setIsLandscape] = useState(false);
   const ori =
     typeof window !== `undefined` &&

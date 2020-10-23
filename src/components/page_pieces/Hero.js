@@ -71,7 +71,7 @@ const Hero = ({ isLandscape }) => {
             <a
               rel="noreferrer"
               target="_blank"
-              href="https://https://www.buro247.ru/culture/music/30-sep-2020-sabrina-interview.html"
+              href="https://www.buro247.ru/culture/music/30-sep-2020-sabrina-interview.html"
             >
               BURO24/7
             </a>
