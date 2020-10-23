@@ -112,8 +112,9 @@ const WebGLPlane = ({ image }) => {
   const onScroll = () => {
     // if (!waiting) {
     plane.current.uniforms.offset.value =
-      (planeEl.current.getBoundingClientRect().y / typeof window !==
-        `undefined` && window.innerHeight) * -0.5;
+      (planeEl.current.getBoundingClientRect().y /
+        (typeof window !== `undefined` && window.innerHeight)) *
+      -0.5;
 
     curtains.current.updateScrollValues(0, window.pageYOffset);
     plane.current.updateScrollPosition();
