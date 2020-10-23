@@ -53,7 +53,7 @@ const WebGLCanvas = memo(() => {
 
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-screen pointer-events-none WebGLCanvas"
+      className="fixed top-0 left-0 w-screen pointer-events-none WebGLCanvas"
       style={{ height: iosInnerHeight() + "px" }}
       ref={container}
     />

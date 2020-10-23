@@ -142,11 +142,11 @@ const WebGLPlane = ({ image }) => {
   };
 
   return (
-    <div ref={ref} className="w-screen h-screen ">
+    <div ref={ref} className="w-screen h-full">
       <div
-        className="top-0 left-0 w-screen h-screen WebGLPlane"
+        className="top-0 left-0 w-screen WebGLPlane"
         ref={planeEl}
-        style={{ height: iosInnerHeight() + "px" }}
+        style={{ height: iosInnerHeight() + "px", zIndex: "-1" }}
       >
         <img
           src={image}
