@@ -1,7 +1,7 @@
 import React from "react";
-import BackgroundImage from "gatsby-background-image";
 import { graphql, useStaticQuery } from "gatsby";
 import Name from "../../images/2.png";
+import BackgroundImage from "gatsby-background-image";
 
 const Hero = ({ isLandscape }) => {
   const images = useStaticQuery(graphql`
@@ -13,10 +13,10 @@ const Hero = ({ isLandscape }) => {
       }
     }
     query {
-      Test: file(relativePath: { eq: "hero.jpg" }) {
+      Test: file(relativePath: { eq: "hero/Hero-Portrait.jpg" }) {
         ...regularImage
       }
-      Test2: file(relativePath: { eq: "hero2.jpg" }) {
+      Test2: file(relativePath: { eq: "hero/Hero-Landscape.jpg" }) {
         ...regularImage
       }
     }
@@ -29,7 +29,7 @@ const Hero = ({ isLandscape }) => {
         loading="eager"
         Tag="section"
         alt="Обложка"
-        fluid={isLandscape ? images.Test.sharp.fluid : images.Test2.sharp.fluid}
+        fluid={isLandscape ? images.Test2.sharp.fluid : images.Test.sharp.fluid}
         fadeIn="soft"
         durationFadeIn={300}
       >
@@ -38,7 +38,11 @@ const Hero = ({ isLandscape }) => {
           style={{ opacity: "0.4" }}
         />
         <div
-          className="absolute top-0 w-screen h-48"
+          className="absolute bottom-0 w-screen h-48 pt-16"
+          style={{ background: "linear-gradient( transparent, #212121)" }}
+        />
+        <div
+          className="absolute top-0 w-screen h-48 pb-16"
           style={{ background: "linear-gradient(#000, transparent)" }}
         ></div>
         <div className="top-0 z-10 w-screen h-auto">
@@ -88,10 +92,7 @@ const Hero = ({ isLandscape }) => {
             певицей Mirele поднимают проблему абьюзивных отношений.
           </p>
         </div>
-        <div
-          className="bottom-0 w-screen h-auto pt-16 "
-          style={{ background: "linear-gradient( transparent, #212121)" }}
-        />
+        <div className=""></div>
       </BackgroundImage>
     </>
   );

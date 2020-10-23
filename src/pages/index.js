@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 // Components
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
 import TextBlock from "../components/TextBlock";
 import CurtainsJS from "../components/Curtains";
 import Text from "../components/Text";
+import TextLast from "../components/TextLast";
 import { textOne, textTwo, textThree, textFour } from "../components/Texts";
 import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
@@ -15,10 +16,12 @@ import SecondScreen from "../components/page_pieces/SecondScreen";
 import { graphql, useStaticQuery } from "gatsby";
 
 // Images
-import threeL from "../images/collages/3L.jpg";
-import fourL from "../images/collages/4L.jpg";
+import parallaxOne from "../images/parallax/ParallaxOne.jpg";
+import parallaxTwo from "../images/parallax/ParallaxTwo.jpg";
+import parallaxThree from "../images/parallax/ParallaxThree.jpg";
+import parallaxFour from "../images/parallax/ParallaxFour.jpg";
 import psychologist from "../images/psychologist.jpg";
-import koshka from "../images/koshka_pink.png";
+// import koshka from "../images/koshka_pink.png";
 
 function IndexPage() {
   const images = useStaticQuery(graphql`
@@ -30,7 +33,16 @@ function IndexPage() {
       }
     }
     query {
-      bgOne: file(relativePath: { eq: "image.jpg" }) {
+      bgOne: file(relativePath: { eq: "backgrounds/TextBlockOne.jpg" }) {
+        ...regularImage
+      }
+      bgTwo: file(relativePath: { eq: "backgrounds/TextBlockTwo.jpg" }) {
+        ...regularImage
+      }
+      bgThree: file(relativePath: { eq: "backgrounds/TextBlockThree.jpg" }) {
+        ...regularImage
+      }
+      bgFour: file(relativePath: { eq: "backgrounds/TextBlockFour.jpg" }) {
         ...regularImage
       }
       videoCover: file(relativePath: { eq: "col.jpg" }) {
@@ -70,7 +82,7 @@ function IndexPage() {
         playing={entry.isIntersecting}
         image={images.bgOne.sharp.fluid}
       />
-      <CurtainsJS image={fourL} />
+      <CurtainsJS image={parallaxOne} />
       <TextBlock
         image={images.bgOne.sharp.fluid}
         heading="Мнение Психолога"
@@ -78,13 +90,13 @@ function IndexPage() {
         name="Ирина Лернер"
         img={psychologist}
       />
-      <CurtainsJS image={threeL} />
-      <Text text={textTwo} image={images.bgOne.sharp.fluid} />
-      <CurtainsJS image={threeL} />
-      <Text text={textThree} image={images.bgOne.sharp.fluid} />
-      <CurtainsJS image={threeL} />
-      <Text text={textFour} image={images.bgOne.sharp.fluid} />
-      <div className="flex flex-col items-center py-20">
+      <CurtainsJS image={parallaxTwo} />
+      <Text text={textTwo} image={images.bgTwo.sharp.fluid} />
+      <CurtainsJS image={parallaxThree} />
+      <Text text={textThree} image={images.bgThree.sharp.fluid} />
+      <CurtainsJS image={parallaxFour} />
+      <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
+      {/* <div className="flex flex-col items-center py-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
           Напишите Нам
         </a>
@@ -97,7 +109,7 @@ function IndexPage() {
           />
         </a>
       </div>
-      <Footer />
+      <Footer /> */}
     </Layout>
   );
 }

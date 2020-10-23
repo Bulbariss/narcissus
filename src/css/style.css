@@ -297,11 +297,9 @@ textarea::-webkit-input-placeholder {
   }
 }
 
-@media (orientation: landscape) {
-  @media (min-height: 500px) {
-    .hero-main {
-      margin-top: -3.9375rem;
-    }
+@media (min-height: 500px) {
+  .hero-main {
+    margin-top: -3.9375rem;
   }
 }
 
