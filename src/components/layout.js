@@ -1,12 +1,16 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React from "react";
 import SmartOutline from "./utils/SmartOutline";
+import { CurtainsProvider } from "../components/curtainsStore";
+import WebGLCanvas from "../components/WebGLCanvas";
+
 function Layout({ children }) {
   return (
-    <Fragment>
+    <CurtainsProvider>
       <SmartOutline />
       <main className="text-white">{children}</main>
-    </Fragment>
+      <WebGLCanvas />
+    </CurtainsProvider>
   );
 }
 
