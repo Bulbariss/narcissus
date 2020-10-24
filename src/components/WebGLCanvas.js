@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useLayoutEffect, memo } from "react";
-import iosInnerHeight from "ios-inner-height";
 import { CurtainsContext } from "./curtainsStore";
+import iosInnerHeight from "ios-inner-height";
 
 const WebGLCanvas = memo(() => {
   // init our curtains instance
@@ -16,7 +16,7 @@ const WebGLCanvas = memo(() => {
 
       curtains
         .onRender(() => {
-         
+          // console.log(container.current.pageYOffset, window.pageYOffset);
         })
         .onError(() => {
           dispatch({
@@ -35,7 +35,7 @@ const WebGLCanvas = memo(() => {
           // Might be performance killer
           curtains.resize();
         });
-
+      curtains.disableDrawing();
       dispatch({
         type: "SET_CURTAINS_CONTAINER",
         container: curtains.container,

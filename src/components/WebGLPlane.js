@@ -1,8 +1,8 @@
 import React, { useContext, useRef, useLayoutEffect, useEffect } from "react";
 import { Plane } from "curtainsjs";
-import { CurtainsContext } from "./curtainsStore";
 import useIntersect from "./utils/useIntersect";
 import iosInnerHeight from "ios-inner-height";
+import { CurtainsContext } from "./curtainsStore";
 
 // vertex and fragment shaders
 const vs = `
@@ -83,7 +83,6 @@ const WebGLPlane = ({ image }) => {
           planeEl.current.parentNode.style.height = iosInnerHeight() + "px";
           onScroll();
         });
-      curtains.current.disableDrawing();
       // remove plane if we're unmounting the component
       return () => {
         plane.current.remove();
@@ -116,17 +115,21 @@ const WebGLPlane = ({ image }) => {
   const getScrollValue = () => {
     return Number.parseFloat(
       (planeEl.current.getBoundingClientRect().y / iosInnerHeight()) * -0.5
-    ).toFixed(3);
+    ).toFixed(4);
   };
 
   const onScroll = () => {
     if (!waiting) {
-      plane.current.uniforms.offset.value = getScrollValue();
       curtains.current.updateScrollValues(
         0,
         typeof window !== `undefined` && window.pageYOffset
       );
-      plane.current.updateScrollPosition();
+      // plane.current.updateScrollPosition(
+      //   curtains.current.getScrollDeltas().x,
+      //   curtains.current.getScrollDeltas().y
+      // );
+      // console.log(curtains.current.getScrollDeltas().y);
+      plane.current.uniforms.offset.value = getScrollValue();
       waiting = true;
       setTimeout(function () {
         waiting = false;
