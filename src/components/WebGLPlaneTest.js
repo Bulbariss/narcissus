@@ -1,7 +1,7 @@
-import React, { useContext, useRef, useLayoutEffect, useEffect } from "react";
+import React, { useContext, useRef, useLayoutEffect } from "react";
 import { Plane } from "curtainsjs";
 import { CurtainsContext } from "./curtainsStore";
-import useIntersect from "./utils/useIntersect";
+// import useIntersect from "./utils/useIntersect";
 import iosInnerHeight from "ios-inner-height";
 
 // vertex and fragment shaders
@@ -42,12 +42,9 @@ const fs = `
     `;
 
 const WebGLPlane = ({ image }) => {
-  const [ref, entry] = useIntersect({
-    threshold: 0,
-  });
   const { state } = useContext(CurtainsContext);
   const planeEl = useRef();
-  var waiting = false;
+  //   var waiting = false;
   let plane = useRef();
   let curtains = useRef();
 
@@ -61,8 +58,6 @@ const WebGLPlane = ({ image }) => {
         fragmentShader: fs,
         production: true,
         shareProgram: true,
-        widthSegments: 10,
-        heightSegments: 10,
         // watchScroll: false,
         uniforms: {
           offset: {
@@ -77,15 +72,21 @@ const WebGLPlane = ({ image }) => {
 
       plane.current
         .onReady(() => {
+          planeEl.current.parentNode.style.height = iosInnerHeight() + "px";
           curtains.current.resize();
-          onScroll();
+          //   plane.current.uniforms.offset.value = getScrollValue();
         })
         .onAfterResize(() => {
-          // planeEl.current.style.height = iosInnerHeight() + "px";
           planeEl.current.parentNode.style.height = iosInnerHeight() + "px";
-          onScroll();
+          //   plane.current.uniforms.offset.value = getScrollValue();
+        })
+        .onReEnterView(() => {})
+        .onLeaveView(() => {})
+        .onRender(() => {
+          plane.current.uniforms.offset.value = getScrollValue();
         });
       curtains.current.disableDrawing();
+
       // remove plane if we're unmounting the component
       return () => {
         plane.current.remove();
@@ -94,59 +95,18 @@ const WebGLPlane = ({ image }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.container, state.curtains]);
 
-  useEffect(() => {
-    if (entry.isIntersecting) {
-      window.addEventListener("scroll", onScroll, {
-        passive: true,
-        capture: false,
-      });
-    } else {
-      window.removeEventListener("scroll", onScroll, {
-        passive: true,
-        capture: false,
-      });
-    }
-    return () => {
-      window.removeEventListener("scroll", onScroll, {
-        passive: true,
-        capture: false,
-      });
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entry]);
-
   const getScrollValue = () => {
     return Number.parseFloat(
       (planeEl.current.getBoundingClientRect().y / iosInnerHeight()) * -0.5
     ).toFixed(3);
   };
 
-  const onScroll = () => {
-    if (!waiting) {
-      // curtains.current.updateScrollValues(
-      //   0,
-      //   typeof window !== `undefined` && window.pageYOffset
-      // );
-      // plane.current.updateScrollPosition();
-      plane.current.uniforms.offset.value = getScrollValue();
-      waiting = true;
-      setTimeout(function () {
-        waiting = false;
-      }, 10);
-    }
-  };
-
   return (
     <div
-      ref={ref}
       className="relative w-screen h-screen"
       style={{ height: iosInnerHeight() + "px" }}
     >
-      <div
-        className="w-screen h-full"
-        ref={planeEl}
-        // style={{ height: iosInnerHeight() + "px" }}
-      >
+      <div className="absolute top-0 left-0 w-screen h-full" ref={planeEl}>
         <img
           src={image}
           alt="Обложка"
