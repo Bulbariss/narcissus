@@ -16,10 +16,7 @@ const WebGLCanvas = memo(() => {
 
       curtains
         .onRender(() => {
-          // curtains.updateScrollValues(
-          //   0,
-          //   typeof window !== `undefined` && window.pageYOffset
-          // );
+         
         })
         .onError(() => {
           dispatch({

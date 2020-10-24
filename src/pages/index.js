@@ -15,7 +15,7 @@ import SecondScreen from "../components/page_pieces/SecondScreen";
 import { graphql, useStaticQuery } from "gatsby";
 import { CurtainsProvider } from "../components/curtainsStore";
 import WebGLCanvas from "../components/WebGLCanvas";
-import WebGLPlane from "../components/WebGLPlaneTest";
+import WebGLPlane from "../components/WebGLPlane";
 
 // Images
 import parallaxOne from "../images/parallax/ParallaxOne.jpg";

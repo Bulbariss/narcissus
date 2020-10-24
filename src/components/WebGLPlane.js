@@ -61,8 +61,6 @@ const WebGLPlane = ({ image }) => {
         fragmentShader: fs,
         production: true,
         shareProgram: true,
-        widthSegments: 10,
-        heightSegments: 10,
         // watchScroll: false,
         uniforms: {
           offset: {
@@ -81,7 +79,7 @@ const WebGLPlane = ({ image }) => {
           onScroll();
         })
         .onAfterResize(() => {
-          // planeEl.current.style.height = iosInnerHeight() + "px";
+          planeEl.current.style.height = iosInnerHeight() + "px";
           planeEl.current.parentNode.style.height = iosInnerHeight() + "px";
           onScroll();
         });
@@ -123,12 +121,12 @@ const WebGLPlane = ({ image }) => {
 
   const onScroll = () => {
     if (!waiting) {
-      // curtains.current.updateScrollValues(
-      //   0,
-      //   typeof window !== `undefined` && window.pageYOffset
-      // );
-      // plane.current.updateScrollPosition();
       plane.current.uniforms.offset.value = getScrollValue();
+      curtains.current.updateScrollValues(
+        0,
+        typeof window !== `undefined` && window.pageYOffset
+      );
+      plane.current.updateScrollPosition();
       waiting = true;
       setTimeout(function () {
         waiting = false;
