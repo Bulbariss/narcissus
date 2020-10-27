@@ -13,9 +13,11 @@ import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
 import { graphql, useStaticQuery } from "gatsby";
-import { CurtainsProvider } from "../components/curtainsStore";
-import WebGLCanvas from "../components/WebGLCanvas";
-import WebGLPlane from "../components/WebGLPlane";
+// import { CurtainsProvider } from "../components/curtainsStore";
+// import WebGLCanvas from "../components/WebGLCanvas";
+import WebGLPlane from "../components/WebGLPlaneBBB";
+import InitCurtains from "../components/InitCurtains";
+import iosInnerHeight from "ios-inner-height";
 
 // Images
 import parallaxOne from "../images/parallax/ParallaxOne.jpg";
@@ -70,36 +72,50 @@ function IndexPage() {
   });
 
   useEffect(() => {
+    document
+      .querySelector("body")
+      .style.setProperty("--height", iosInnerHeight() + "px");
     setIsLandscape(ori.matches);
+    setTimeout(() => {
+      InitCurtains();
+    }, 600);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <CurtainsProvider>
-      <Layout>
-        <SEO title="Главная" description="" pathname="/" />
-        <Hero isLandscape={isLandscape} />
-        <SecondScreen />
-        <Video
-          ref={ref}
-          playing={entry.isIntersecting}
-          image={images.bgOne.sharp.fluid}
-        />
-        <WebGLPlane image={parallaxOne} />
-        <TextBlock
-          image={images.bgOne.sharp.fluid}
-          heading="Мнение Психолога"
-          text={textOne}
-          name="Ирина Лернер"
-          img={psychologist}
-        />
-        <WebGLPlane image={parallaxTwo} />
-        <Text text={textTwo} image={images.bgTwo.sharp.fluid} />
-        <WebGLPlane image={parallaxThree} />
-        <Text text={textThree} image={images.bgThree.sharp.fluid} />
-        <WebGLPlane image={parallaxFour} />
-        <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
-        {/* <div className="flex flex-col items-center py-20">
+    // <CurtainsProvider>
+    <Layout>
+      <SEO
+        title="Главная"
+        description="Арт-проект, в котором Koshka Neon вместе с певицей Сабриной и певицей Mirele поднимают проблему абьюзивных отношений."
+        pathname="/"
+      />
+      <div
+        id="canvas"
+        className="fixed top-0 left-0 right-0 z-10 w-screen true-height"
+      ></div>
+      <Hero isLandscape={isLandscape} />
+      <SecondScreen />
+      <Video
+        ref={ref}
+        playing={entry.isIntersecting}
+        image={images.bgOne.sharp.fluid}
+      />
+      <WebGLPlane image={parallaxOne} />
+      <TextBlock
+        image={images.bgOne.sharp.fluid}
+        heading="Мнение Психолога"
+        text={textOne}
+        name="Ирина Лернер"
+        img={psychologist}
+      />
+      <WebGLPlane image={parallaxTwo} />
+      <Text text={textTwo} image={images.bgTwo.sharp.fluid} />
+      <WebGLPlane image={parallaxThree} />
+      <Text text={textThree} image={images.bgThree.sharp.fluid} />
+      <WebGLPlane image={parallaxFour} />
+      <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
+      {/* <div className="flex flex-col items-center py-20">
         <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
           Напишите Нам
         </a>
@@ -113,9 +129,9 @@ function IndexPage() {
         </a>
       </div>
       <Footer /> */}
-        <WebGLCanvas />
-      </Layout>
-    </CurtainsProvider>
+      {/* <WebGLCanvas /> */}
+    </Layout>
+    // </CurtainsProvider>
   );
 }
 

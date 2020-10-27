@@ -1,4 +1,4 @@
-import { Curtains, Plane, Vec2, Vec3 } from "curtainsjs";
+import { Curtains, Plane } from "curtainsjs";
 import iosInnerHeight from "ios-inner-height";
 
 export default function InitCurtains() {
@@ -9,7 +9,7 @@ export default function InitCurtains() {
       1.5,
       typeof window !== `undefined` && window.devicePixelRatio
     ),
-    production: true,
+    // production: true,
     // watchScroll: false,
     antialias: false,
     depth: false,
@@ -17,32 +17,12 @@ export default function InitCurtains() {
   });
 
   curtains
-    .onRender(() => {
-      // update our planes deformation
-      // increase/decrease the effect
-      //   scrollEffect = curtains.lerp(scrollEffect, 0, 0.075);
-      // update our number of planes drawn debug value
-      //   debugElement.innerText = planeDrawn;
-    })
+    .onRender(() => {})
     .onScroll(() => {
-      // get scroll deltas to apply the effect on scroll
-      //   const delta = curtains.getScrollDeltas();
-      // invert value for the effect
-      //   delta.y = -delta.y;
-      // threshold
-      //   if (delta.y > 60) {
-      //     delta.y = 60;
-      //   } else if (delta.y < -60) {
-      //     delta.y = -60;
-      //   }
-      //   if (Math.abs(delta.y) > Math.abs(scrollEffect)) {
-      //     scrollEffect = curtains.lerp(scrollEffect, delta.y, 0.5);
-      //   }
-      // update the plane positions during scroll
-      //   for (let i = 0; i < planes.length; i++) {
-      //     // apply additional translation, scale and rotation
-      //     applyPlanesParallax(i);
-      //   }
+      for (let i = 0; i < planes.length; i++) {
+        // apply additional translation, scale and rotation
+        onScroll(i);
+      }
     })
     .onError(() => {
       // we will add a class to the document body to display original images
@@ -55,7 +35,6 @@ export default function InitCurtains() {
 
   // we will keep track of all our planes in an array
   const planes = [];
-  let scrollEffect = 0;
 
   // get our planes elements
   const planeElements = document.getElementsByClassName("plane");
@@ -63,7 +42,7 @@ export default function InitCurtains() {
   // keep track of the number of plane we're currently drawing
   //   const debugElement = document.getElementById("debug-value");
   // we need to fill the counter with all our planes
-//   let planeDrawn = planeElements.length;
+  //   let planeDrawn = planeElements.length;
 
   const vs = `
 			precision mediump float;
@@ -140,48 +119,48 @@ export default function InitCurtains() {
       })
       .onAfterResize(() => {
         // apply new parallax values after resize
+        document
+          .querySelector("body")
+          .style.setProperty("--height", iosInnerHeight() + "px");
         onScroll(index);
       })
       .onRender(() => {
         // apply the rotation
-        plane.setRotation(new Vec3(0, 0, scrollEffect / 750));
-
-        // scale plane and its texture
-        plane.setScale(new Vec2(1, 1 + Math.abs(scrollEffect) / 300));
-        plane.textures[0].setScale(
-          new Vec2(1, 1 + Math.abs(scrollEffect) / 150)
-        );
-
-        // update the uniform
-        plane.uniforms.scrollEffect.value = scrollEffect;
+        // plane.setRotation(new Vec3(0, 0, scrollEffect / 750));
+        // // scale plane and its texture
+        // plane.setScale(new Vec2(1, 1 + Math.abs(scrollEffect) / 300));
+        // plane.textures[0].setScale(
+        //   new Vec2(1, 1 + Math.abs(scrollEffect) / 150)
+        // );
+        // // update the uniform
+        // plane.uniforms.scrollEffect.value = scrollEffect;
       })
-      .onReEnterView(() => {
-      })
-      .onLeaveView(() => {
-      });
+      .onReEnterView(() => {})
+      .onLeaveView(() => {});
   }
 
-//   function applyPlanesParallax(index) {
-//     // calculate the parallax effect
-//     // get our window size
-//     const sceneBoundingRect = curtains.getBoundingRect();
-//     // get our plane center coordinate
-//     const planeBoundingRect = planes[index].getBoundingRect();
-//     const planeOffsetTop = planeBoundingRect.top + planeBoundingRect.height / 2;
-//     // get a float value based on window height (0 means the plane is centered)
-//     const parallaxEffect =
-//       (planeOffsetTop - sceneBoundingRect.height / 2) /
-//       sceneBoundingRect.height;
+  //   function applyPlanesParallax(index) {
+  //     // calculate the parallax effect
+  //     // get our window size
+  //     const sceneBoundingRect = curtains.getBoundingRect();
+  //     // get our plane center coordinate
+  //     const planeBoundingRect = planes[index].getBoundingRect();
+  //     const planeOffsetTop = planeBoundingRect.top + planeBoundingRect.height / 2;
+  //     // get a float value based on window height (0 means the plane is centered)
+  //     const parallaxEffect =
+  //       (planeOffsetTop - sceneBoundingRect.height / 2) /
+  //       sceneBoundingRect.height;
 
-//     // apply the parallax effect
-//     planes[index].setRelativeTranslation(
-//       new Vec3(0, parallaxEffect * (sceneBoundingRect.height / 4))
-//     );
-//   }
+  //     // apply the parallax effect
+  //     planes[index].setRelativeTranslation(
+  //       new Vec3(0, parallaxEffect * (sceneBoundingRect.height / 4))
+  //     );
+  //   }
 
   function getScrollValue(index) {
     return Number.parseFloat(
-      (planes[index].getBoundingClientRect().y / iosInnerHeight()) * -0.5
+      (planes[index].htmlElement.getBoundingClientRect().y / iosInnerHeight()) *
+        -0.5
     ).toFixed(4);
   }
 

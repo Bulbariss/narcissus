@@ -21,6 +21,7 @@ const WebGLCanvas = memo(() => {
           //   0,
           //   typeof window !== `undefined` && window.pageYOffset
           // );
+          curtains.resize();
         })
         .onError(() => {
           dispatch({

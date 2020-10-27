@@ -58,7 +58,7 @@ const WebGLPlane = ({ image }) => {
       const planeParams = {
         vertexShader: vs,
         fragmentShader: fs,
-        production: true,
+        // production: true,
         shareProgram: true,
         // watchScroll: false,
         uniforms: {
@@ -119,11 +119,6 @@ const WebGLPlane = ({ image }) => {
 
   const onScroll = () => {
     if (!waiting) {
-      // plane.current.updateScrollPosition(
-      //   curtains.current.getScrollDeltas().x,
-      //   curtains.current.getScrollDeltas().y
-      // );
-      // console.log(plane.current.htmlElement);
       plane.current.uniforms.offset.value = getScrollValue();
       waiting = true;
       setTimeout(function () {
