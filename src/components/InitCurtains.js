@@ -37,6 +37,7 @@ export default function InitCurtains() {
       document
         .querySelector("body")
         .style.setProperty("--height", iosInnerHeight() + "px");
+      curtains.resize();
     });
 
   // we will keep track of all our planes in an array
@@ -117,7 +118,6 @@ export default function InitCurtains() {
       .onReady(() => {
         // apply parallax on load
         onScroll(index);
-
         // once everything is ready, display everything
         if (index === planes.length - 1) {
           document.body.classList.add("planes-loaded");

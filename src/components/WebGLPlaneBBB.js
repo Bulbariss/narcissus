@@ -2,33 +2,18 @@ import React from "react";
 
 const WebGLPlane = ({ image }) => {
   return (
-    <div className="plane-wrapper true-height">
+    <div className="relative w-screen plane-wrapper true-height">
       <div className="plane-inner">
-        <div className="plane true-height">
-          <img src={image} alt="Обложка" data-sampler="planeTexture" />
+        <div className="absolute top-0 bottom-0 left-0 right-0 plane true-height">
+          <img
+            src={image}
+            alt="Обложка"
+            className="hidden"
+            data-sampler="planeTexture"
+          />
         </div>
       </div>
       <style jsx>{`
-        .plane-wrapper {
-          position: relative;
-          width: 100vw;
-          height: 100vh;
-        }
-
-        .plane {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-        }
-
-        .plane img {
-          display: none;
-        }
-
-        /*** handling errors ***/
-
         .no-curtains .plane-title {
           z-index: 1;
         }

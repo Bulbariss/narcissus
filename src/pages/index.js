@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 // Components
-// import Footer from "../components/Footer";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Hero from "../components/page_pieces/Hero";
@@ -23,7 +22,6 @@ import parallaxTwo from "../images/parallax/ParallaxTwo.jpg";
 import parallaxThree from "../images/parallax/ParallaxThree.jpg";
 import parallaxFour from "../images/parallax/ParallaxFour.jpg";
 import psychologist from "../images/psychologist.jpg";
-// import koshka from "../images/koshka_pink.png";
 
 function IndexPage() {
   const images = useStaticQuery(graphql`
