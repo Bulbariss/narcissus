@@ -13,8 +13,6 @@ import Video from "../components/Video";
 import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
 import { graphql, useStaticQuery } from "gatsby";
-// import { CurtainsProvider } from "../components/curtainsStore";
-// import WebGLCanvas from "../components/WebGLCanvas";
 import WebGLPlane from "../components/WebGLPlaneBBB";
 import InitCurtains from "../components/InitCurtains";
 import iosInnerHeight from "ios-inner-height";
@@ -78,12 +76,11 @@ function IndexPage() {
     setIsLandscape(ori.matches);
     setTimeout(() => {
       InitCurtains();
-    }, 600);
+    }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    // <CurtainsProvider>
     <Layout>
       <SEO
         title="Главная"
@@ -93,7 +90,7 @@ function IndexPage() {
       <div
         id="canvas"
         className="fixed top-0 left-0 right-0 z-10 w-screen true-height"
-      ></div>
+      />
       <Hero isLandscape={isLandscape} />
       <SecondScreen />
       <Video
@@ -115,23 +112,7 @@ function IndexPage() {
       <Text text={textThree} image={images.bgThree.sharp.fluid} />
       <WebGLPlane image={parallaxFour} />
       <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
-      {/* <div className="flex flex-col items-center py-20">
-        <a href="simon@koshkaneon.com" className="text-3xl bbb text-acid">
-          Напишите Нам
-        </a>
-        <a href="https://koshkaneon.com" rel="noreferrer" target="_blank">
-          <img
-            src={koshka}
-            alt="Koshka Neon Logo"
-            className="w-1/4 h-auto py-12 mx-auto"
-            loading="lazy"
-          />
-        </a>
-      </div>
-      <Footer /> */}
-      {/* <WebGLCanvas /> */}
     </Layout>
-    // </CurtainsProvider>
   );
 }
 

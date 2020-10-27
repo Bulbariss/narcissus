@@ -9,7 +9,7 @@ export default function InitCurtains() {
       1.5,
       typeof window !== `undefined` && window.devicePixelRatio
     ),
-    // production: true,
+    production: true,
     // watchScroll: false,
     antialias: false,
     depth: false,
@@ -31,6 +31,12 @@ export default function InitCurtains() {
     .onContextLost(() => {
       // on context lost, try to restore the context
       curtains.restoreContext();
+    })
+    .onAfterResize(() => {
+      // apply new parallax values after resize
+      document
+        .querySelector("body")
+        .style.setProperty("--height", iosInnerHeight() + "px");
     });
 
   // we will keep track of all our planes in an array
@@ -119,9 +125,6 @@ export default function InitCurtains() {
       })
       .onAfterResize(() => {
         // apply new parallax values after resize
-        document
-          .querySelector("body")
-          .style.setProperty("--height", iosInnerHeight() + "px");
         onScroll(index);
       })
       .onRender(() => {
@@ -161,7 +164,7 @@ export default function InitCurtains() {
     return Number.parseFloat(
       (planes[index].htmlElement.getBoundingClientRect().y / iosInnerHeight()) *
         -0.5
-    ).toFixed(4);
+    ).toFixed(3);
   }
 
   function onScroll(index) {

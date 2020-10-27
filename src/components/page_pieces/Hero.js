@@ -82,16 +82,17 @@ const Hero = ({ isLandscape }) => {
           </div>
         </div>
         <div className="z-10 flex flex-col max-w-2xl px-4 text-white md:px-0 hero-main">
+          <h1 className="invisible">Narcissus</h1>
           <img
             src={Name}
-            alt="narcissus"
+            alt="Narcissus"
             rel="preload"
             className="w-full h-auto select-none"
           />
-          <h1 className="text-xl text-white P font-base md:text-center">
+          <p className="text-xl text-white P font-base md:text-center">
             Арт-проект, в котором Koshka Neon вместе с певицей Сабриной и
             певицей Mirele поднимают проблему абьюзивных отношений.
-          </h1>
+          </p>
         </div>
         <div className=""></div>
       </BackgroundImage>
