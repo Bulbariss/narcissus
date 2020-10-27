@@ -8,7 +8,7 @@ const initialState = {
       typeof window !== `undefined` && window.devicePixelRatio
     ),
     production: true,
-    watchScroll: false,
+    // watchScroll: false,
     antialias: false,
     depth: false,
     autoResize: true,

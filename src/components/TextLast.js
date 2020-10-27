@@ -14,38 +14,42 @@ const TextLast = ({ text, image }) => {
       <p className="max-w-full px-4 m-0 mx-auto text-lg text-justify whitespace-pre-wrap md:px-0 P max-w-text">
         {text}
       </p>
-      <div className="top-0 z-10 w-screen h-auto pt-20">
-        <div className="flex justify-around max-w-80" style={{ color: "#cf0" }}>
+      <div className="top-0 z-10 flex flex-col w-screen h-auto pt-20">
+        <div
+          className="flex justify-around w-full max-w-80"
+          style={{ color: "#cf0" }}
+        >
+          <p>© 2020</p>
           <a
             rel="noreferrer"
             target="_blank"
-            href="https://www.vogue.ru/lifestyle/nasilie-eto-ne-pro-lyubov-chto-posmotret-i-prochest-ob-abyuze"
+            href="https://facebook.com/koshka.neon"
           >
-            © 2020 Koshka Neon
+            FACEBOOK
           </a>
           <a
             rel="noreferrer"
             target="_blank"
-            href="https://srsly.ru/article/show/4481/"
+            href="https://vimeo.com/koshkaneon"
           >
-            SRSLY
+            VIMEO
           </a>
           <a
             rel="noreferrer"
             target="_blank"
-            href="https://flacon-magazine.com/rubric/people/sabrina-bagirova-diskomfort-cast-moej-zizni"
+            href="https://www.instagram.com/koshka.neon"
           >
-            FLACON
-          </a>
-          <a
-            rel="noreferrer"
-            target="_blank"
-            href="https://www.buro247.ru/culture/music/30-sep-2020-sabrina-interview.html"
-          >
-            BURO24/7
+            INSTAGRAM
           </a>
         </div>
-        <p className="py-6 text-4xl text-center bbb">Koshka Neon</p>
+        <a
+          rel="noreferrer"
+          target="_blank"
+          href="https://www.koshkaneon.com/"
+          className="pt-6 text-4xl text-center bbb"
+        >
+          Koshka Neon
+        </a>
       </div>
     </BackgroundImage>
   );

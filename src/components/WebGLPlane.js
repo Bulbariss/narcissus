@@ -38,7 +38,6 @@ const fs = `
             // draw our texture
             gl_FragColor = texture2D(planeTexture, textureCoord);
         }
-        
     `;
 
 const WebGLPlane = ({ image }) => {
@@ -79,7 +78,7 @@ const WebGLPlane = ({ image }) => {
           onScroll();
         })
         .onAfterResize(() => {
-          planeEl.current.style.height = iosInnerHeight() + "px";
+          // planeEl.current.style.height = iosInnerHeight() + "px";
           planeEl.current.parentNode.style.height = iosInnerHeight() + "px";
           onScroll();
         });
@@ -120,15 +119,11 @@ const WebGLPlane = ({ image }) => {
 
   const onScroll = () => {
     if (!waiting) {
-      curtains.current.updateScrollValues(
-        0,
-        typeof window !== `undefined` && window.pageYOffset
-      );
       // plane.current.updateScrollPosition(
       //   curtains.current.getScrollDeltas().x,
       //   curtains.current.getScrollDeltas().y
       // );
-      // console.log(curtains.current.getScrollDeltas().y);
+      // console.log(plane.current.htmlElement);
       plane.current.uniforms.offset.value = getScrollValue();
       waiting = true;
       setTimeout(function () {

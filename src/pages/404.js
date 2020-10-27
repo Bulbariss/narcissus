@@ -12,15 +12,14 @@ function NotFoundPage() {
         description="Страница не найдена"
         pathname="/404"
       />
-      <section className="flex justify-center h-screen">
-        <div className="self-center">
-          <h1 className="m-auto mb-4 text-3xl font-bold w-fit">
-            Страница не найдена
-          </h1>
-          <Link to="/" className="text-white bg-indigo-700 btn btn-cc btn-lg">
-            На главную
-          </Link>
-        </div>
+      <section className="flex flex-col items-center justify-center h-screen">
+        <h1 className="mb-4 text-3xl font-bold">Страница не найдена</h1>
+        <Link
+          to="/"
+          className="text-white bg-indigo-700 hover:bg-indigo-600 btn btn-cc btn-lg"
+        >
+          На главную
+        </Link>
       </section>
     </Layout>
   );

@@ -84,6 +84,7 @@ const WebGLPlane = ({ image }) => {
         .onLeaveView(() => {})
         .onRender(() => {
           plane.current.uniforms.offset.value = getScrollValue();
+          console.log("object");
         });
       curtains.current.disableDrawing();
 

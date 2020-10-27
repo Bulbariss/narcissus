@@ -85,12 +85,13 @@ const Hero = ({ isLandscape }) => {
           <img
             src={Name}
             alt="narcissus"
+            rel="preload"
             className="w-full h-auto select-none"
           />
-          <p className="text-xl text-white P font-base md:text-center">
+          <h1 className="text-xl text-white P font-base md:text-center">
             Арт-проект, в котором Koshka Neon вместе с певицей Сабриной и
             певицей Mirele поднимают проблему абьюзивных отношений.
-          </p>
+          </h1>
         </div>
         <div className=""></div>
       </BackgroundImage>
