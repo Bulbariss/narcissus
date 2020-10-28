@@ -6,8 +6,8 @@ import BackgroundImage from "gatsby-background-image";
 const Hero = ({ isLandscape }) => {
   const images = useStaticQuery(graphql`
     fragment regularImage on File {
-      sharp: childImageSharp {
-        fluid {
+      childImageSharp {
+        fluid(maxWidth: 2000, quality: 100) {
           ...GatsbyImageSharpFluid
         }
       }
@@ -29,7 +29,11 @@ const Hero = ({ isLandscape }) => {
         loading="eager"
         Tag="section"
         alt="Обложка"
-        fluid={isLandscape ? images.Test2.sharp.fluid : images.Test.sharp.fluid}
+        fluid={
+          isLandscape
+            ? images.Test2.sharp.childImageSharp
+            : images.Test.sharp.childImageSharp
+        }
         fadeIn="soft"
         durationFadeIn={300}
       >

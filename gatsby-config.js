@@ -56,8 +56,8 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         stripMetadata: true,
-        jpegQuality: 85,
-        pngQuality: 85,
+        jpegQuality: 100,
+        pngQuality: 100,
       },
     },
     `gatsby-plugin-offline`,

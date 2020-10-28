@@ -26,8 +26,8 @@ import psychologist from "../images/psychologist.jpg";
 function IndexPage() {
   const images = useStaticQuery(graphql`
     fragment regularImage on File {
-      sharp: childImageSharp {
-        fluid {
+      childImageSharp {
+        fluid(maxWidth: 2000, quality: 100) {
           ...GatsbyImageSharpFluid
         }
       }
@@ -94,22 +94,22 @@ function IndexPage() {
       <Video
         ref={ref}
         playing={entry.isIntersecting}
-        image={images.bgOne.sharp.fluid}
+        image={images.bgOne.sharp.childImageSharp}
       />
       <WebGLPlane image={parallaxOne} />
       <TextBlock
-        image={images.bgOne.sharp.fluid}
+        image={images.bgOne.sharp.childImageSharp}
         heading="Мнение Психолога"
         text={textOne}
         name="Ирина Лернер"
         img={psychologist}
       />
       <WebGLPlane image={parallaxTwo} />
-      <Text text={textTwo} image={images.bgTwo.sharp.fluid} />
+      <Text text={textTwo} image={images.bgTwo.sharp.childImageSharp} />
       <WebGLPlane image={parallaxThree} />
-      <Text text={textThree} image={images.bgThree.sharp.fluid} />
+      <Text text={textThree} image={images.bgThree.sharp.childImageSharp} />
       <WebGLPlane image={parallaxFour} />
-      <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
+      <TextLast text={textFour} image={images.bgFour.sharp.childImageSharp} />
     </Layout>
   );
 }
