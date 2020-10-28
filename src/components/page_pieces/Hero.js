@@ -31,8 +31,8 @@ const Hero = ({ isLandscape }) => {
         alt="Обложка"
         fluid={
           isLandscape
-            ? images.Test2.sharp.childImageSharp
-            : images.Test.sharp.childImageSharp
+            ? images.Test2.childImageSharp.fluid
+            : images.Test.childImageSharp.fluid
         }
         fadeIn="soft"
         durationFadeIn={300}

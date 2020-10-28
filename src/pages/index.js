@@ -94,22 +94,22 @@ function IndexPage() {
       <Video
         ref={ref}
         playing={entry.isIntersecting}
-        image={images.bgOne.sharp.childImageSharp}
+        image={images.bgOne.sharp.fluid}
       />
       <WebGLPlane image={parallaxOne} />
       <TextBlock
-        image={images.bgOne.sharp.childImageSharp}
+        image={images.bgOne.sharp.fluid}
         heading="Мнение Психолога"
         text={textOne}
         name="Ирина Лернер"
         img={psychologist}
       />
       <WebGLPlane image={parallaxTwo} />
-      <Text text={textTwo} image={images.bgTwo.sharp.childImageSharp} />
+      <Text text={textTwo} image={images.bgTwo.sharp.fluid} />
       <WebGLPlane image={parallaxThree} />
-      <Text text={textThree} image={images.bgThree.sharp.childImageSharp} />
+      <Text text={textThree} image={images.bgThree.sharp.fluid} />
       <WebGLPlane image={parallaxFour} />
-      <TextLast text={textFour} image={images.bgFour.sharp.childImageSharp} />
+      <TextLast text={textFour} image={images.bgFour.sharp.fluid} />
     </Layout>
   );
 }
