@@ -22,7 +22,7 @@ module.exports = {
         theme_color: `#cf0`,
         display: `minimal-ui`,
         icon: `./src/images/icon.png`,
-        purpose: "maskable",
+        // purpose: "maskable",
       },
     },
     {
@@ -56,8 +56,8 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         stripMetadata: true,
-        jpegQuality: 100,
-        pngQuality: 100,
+        // jpegQuality: 100,
+        // pngQuality: 100,
       },
     },
     `gatsby-plugin-offline`,
