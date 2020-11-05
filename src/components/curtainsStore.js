@@ -9,6 +9,7 @@ const initialState = {
     ),
     production: true,
     // watchScroll: false,
+    premultipliedAlpha: true,
     antialias: false,
     depth: false,
     autoResize: true,

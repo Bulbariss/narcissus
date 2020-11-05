@@ -1,10 +1,14 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import Vid from "../images/main.mp4";
 import BackgroundImage from "gatsby-background-image";
+import useIntersect from "../components/utils/useIntersect";
 import Cover from "../images/cover.jpg";
 
-const Video = forwardRef(({ playing, image }, ref) => {
+const Video = ({ image }) => {
+  const [ref, entry] = useIntersect({
+    threshold: 0.7,
+  });
   const [ready, setReady] = useState(false);
   const [play, setPlay] = useState(false);
 
@@ -22,7 +26,7 @@ const Video = forwardRef(({ playing, image }, ref) => {
           id="react-player"
           className={"react-player"}
           onReady={() => setReady(true)}
-          playing={playing && ready && play}
+          playing={entry.isIntersecting && ready && play}
           url={Vid}
           height={"auto"}
           width={"auto"}
@@ -59,7 +63,7 @@ const Video = forwardRef(({ playing, image }, ref) => {
       </BackgroundImage>
     </div>
   );
-});
+};
 Video.displayName = "Video";
 
 export default Video;

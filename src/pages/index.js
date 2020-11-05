@@ -8,13 +8,13 @@ import TextBlock from "../components/TextBlock";
 import Text from "../components/Text";
 import TextLast from "../components/TextLast";
 import { textOne, textTwo, textThree, textFour } from "../components/Texts";
-import Video from "../components/Video";
-import useIntersect from "../components/utils/useIntersect";
 import SecondScreen from "../components/page_pieces/SecondScreen";
+import Video from "../components/Video";
 import { graphql, useStaticQuery } from "gatsby";
-import WebGLPlane from "../components/WebGLPlaneBBB";
-import InitCurtains from "../components/InitCurtains";
+import WebGLPlane from "../components/WebGLPlaneObs";
 import iosInnerHeight from "ios-inner-height";
+import WebGLCanvas from "../components/WebGLCanvas";
+import { CurtainsProvider } from "../components/curtainsStore";
 
 // Images
 import parallaxOne from "../images/parallax/ParallaxOne.jpg";
@@ -27,7 +27,7 @@ function IndexPage() {
   const images = useStaticQuery(graphql`
     fragment regularImage on File {
       childImageSharp {
-        fluid(maxWidth: 2000, quality: 100) {
+        fluid(maxWidth: 2000, quality: 75) {
           ...GatsbyImageSharpFluid
         }
       }
@@ -50,7 +50,6 @@ function IndexPage() {
       }
     }
   `);
-
   const [isLandscape, setIsLandscape] = useState(false);
   const ori =
     typeof window !== `undefined` &&
@@ -63,54 +62,44 @@ function IndexPage() {
     });
   }
 
-  const [ref, entry] = useIntersect({
-    threshold: 0.7,
-  });
-
   useEffect(() => {
     document
       .querySelector("body")
       .style.setProperty("--height", iosInnerHeight() + "px");
     setIsLandscape(ori.matches);
-    setTimeout(() => {
-      InitCurtains();
-    }, 200);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Layout>
-      <SEO
-        title="Главная"
-        description="Арт-проект, в котором Koshka Neon вместе с певицей Сабриной и певицей Mirele поднимают проблему абьюзивных отношений."
-        pathname="/"
-      />
-      <div
-        id="canvas"
-        className="fixed top-0 left-0 right-0 z-10 w-screen true-height"
-      />
-      <Hero isLandscape={isLandscape} />
-      <SecondScreen />
-      <Video
-        ref={ref}
-        playing={entry.isIntersecting}
-        image={images.videoCover.childImageSharp.fluid}
-      />
-      <WebGLPlane image={parallaxOne} />
-      <TextBlock
-        image={images.bgOne.childImageSharp.fluid}
-        heading="Мнение Психолога"
-        text={textOne}
-        name="Ирина Лернер"
-        img={psychologist}
-      />
-      <WebGLPlane image={parallaxTwo} />
-      <Text text={textTwo} image={images.bgTwo.childImageSharp.fluid} />
-      <WebGLPlane image={parallaxThree} />
-      <Text text={textThree} image={images.bgThree.childImageSharp.fluid} />
-      <WebGLPlane image={parallaxFour} />
-      <TextLast text={textFour} image={images.bgFour.childImageSharp.fluid} />
-    </Layout>
+    <CurtainsProvider>
+      <Layout>
+        <SEO
+          title="Главная"
+          description="Арт-проект, в котором Koshka Neon вместе с певицей Сабриной и певицей Mirele поднимают проблему абьюзивных отношений."
+          pathname="/"
+        />
+
+        <Hero isLandscape={isLandscape} />
+        <SecondScreen />
+        <Video image={images.videoCover.childImageSharp.fluid} />
+        <WebGLPlane image={parallaxOne} />
+        <TextBlock
+          image={images.bgOne.childImageSharp.fluid}
+          heading="Мнение Психолога"
+          text={textOne}
+          name="Ирина Лернер"
+          img={psychologist}
+        />
+        <WebGLPlane image={parallaxTwo} />
+        <Text text={textTwo} image={images.bgTwo.childImageSharp.fluid} />
+        <WebGLPlane image={parallaxThree} />
+        <Text text={textThree} image={images.bgThree.childImageSharp.fluid} />
+        <WebGLPlane image={parallaxFour} />
+        <TextLast text={textFour} image={images.bgFour.childImageSharp.fluid} />
+      </Layout>
+      <WebGLCanvas />
+    </CurtainsProvider>
   );
 }
 

@@ -1,12 +1,11 @@
-import React, { useContext, useRef, useLayoutEffect, memo } from "react";
+import React, { useContext, useRef, useLayoutEffect } from "react";
 import { CurtainsContext } from "./curtainsStore";
 import iosInnerHeight from "ios-inner-height";
 
-const WebGLCanvas = memo(() => {
+const WebGLCanvas = () => {
   // init our curtains instance
   const { state, dispatch } = useContext(CurtainsContext);
   const container = useRef();
-
   useLayoutEffect(() => {
     const curtains = state.curtains;
 
@@ -16,11 +15,6 @@ const WebGLCanvas = memo(() => {
 
       curtains
         .onRender(() => {
-          // console.log(container.current.pageYOffset, window.pageYOffset);
-          // curtains.current.updateScrollValues(
-          //   0,
-          //   typeof window !== `undefined` && window.pageYOffset
-          // );
           curtains.resize();
         })
         .onError(() => {
@@ -37,6 +31,9 @@ const WebGLCanvas = memo(() => {
             0,
             typeof window !== `undefined` && window.pageYOffset
           );
+          document
+            .querySelector("body")
+            .style.setProperty("--height", iosInnerHeight() + "px");
           // Might be performance killer
           curtains.resize();
         });
@@ -60,8 +57,6 @@ const WebGLCanvas = memo(() => {
       ref={container}
     />
   );
-});
-
-WebGLCanvas.displayName = "WebGLCanvas";
+};
 
 export default WebGLCanvas;
